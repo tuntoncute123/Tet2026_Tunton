@@ -3,6 +3,7 @@ import Countdown from './components/Countdown';
 import Celebration from './components/Celebration';
 import StarryBackground from './components/StarryBackground';
 import FloatingGallery from './components/FloatingGallery';
+import BackgroundMusic from './components/BackgroundMusic';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <BackgroundMusic />
       <StarryBackground />
       <FloatingGallery />
       <div style={{ position: 'relative', zIndex: 10, width: '100%', display: 'flex', justifyContent: 'center' }}>

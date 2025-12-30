@@ -1,0 +1,81 @@
+.music-control-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 100;
+}
+
+.music-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    background: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.music-btn.playing {
+    border-color: rgba(74, 222, 128, 0.5);
+}
+
+.music-btn.playing .icon {
+    animation: musicBounce 1s infinite alternate;
+}
+
+/* Animation to draw attention if autoplay failed */
+.pulse-attention {
+    animation: pulseRed 2s infinite;
+    background: rgba(239, 68, 68, 0.8);
+}
+
+@keyframes musicBounce {
+    0% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulseRed {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+@media (max-width: 640px) {
+    .music-control-container {
+        bottom: 1rem;
+        left: 1rem;
+    }
+
+    .music-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
