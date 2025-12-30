@@ -1,0 +1,167 @@
+.falling-wishes-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at bottom, #1e1b4b 0%, #020617 100%);
+    z-index: 200;
+    /* Above everything */
+    overflow: hidden;
+}
+
+.back-btn-fixed {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 99px;
+    cursor: pointer;
+    z-index: 210;
+    transition: all 0.2s;
+}
+
+.back-btn-fixed:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sky-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.falling-envelope {
+    position: absolute;
+    top: -100px;
+    cursor: pointer;
+    font-size: 3rem;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+    transition: transform 0.2s;
+    user-select: none;
+    z-index: 205;
+}
+
+.falling-envelope:hover {
+    transform: scale(1.2) !important;
+    /* Override inline scale slightly */
+    filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+    z-index: 210;
+}
+
+@keyframes fall {
+    0% {
+        top: -10%;
+        transform: rotate(0deg) translateX(0);
+    }
+
+    50% {
+        transform: rotate(10deg) translateX(20px);
+    }
+
+    100% {
+        top: 110%;
+        transform: rotate(-10deg) translateX(-20px);
+    }
+}
+
+/* Modal Styles */
+.wish-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    animation: fadeInMode 0.3s ease-out;
+}
+
+.wish-modal-content {
+    background: #0f172a;
+    /* Dark Blue */
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    /* Gold border */
+    width: 90%;
+    max-width: 500px;
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(251, 191, 36, 0.2);
+    position: relative;
+    transform: scale(0.9);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-header {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.modal-message {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #f1f5f9;
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+    /* Elegant font if avail, fallback serif */
+}
+
+.modal-footer {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.close-modal-btn {
+    background: #fbbf24;
+    color: #78350f;
+    border: none;
+    padding: 0.8rem 2.5rem;
+    font-weight: 700;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.close-modal-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeInMode {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    to {
+        transform: scale(1);
+    }
+}
+
+.loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem;
+    animation: pulse 1.5s infinite;
+}

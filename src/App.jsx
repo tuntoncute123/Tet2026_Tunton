@@ -8,13 +8,15 @@ import QuestionButton from './components/QuestionButton';
 import QuestionPage from './components/QuestionPage';
 import WishesButton from './components/WishesButton';
 import WishesPage from './components/WishesPage';
+import ViewWishesButton from './components/ViewWishesButton';
+import ViewWishesPage from './components/ViewWishesPage';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
 const targetDate = new Date('2026-01-01T00:00:00');
 
 function App() {
-  // 'home' | 'questions' | 'wishes'
+  // 'home' | 'questions' | 'wishes' | 'view-wishes'
   const [currentView, setCurrentView] = useState('home');
   const [isNewYear, setIsNewYear] = useState(false);
 
@@ -24,6 +26,9 @@ function App() {
     }
     if (currentView === 'wishes') {
       return <WishesPage onBack={() => setCurrentView('home')} />;
+    }
+    if (currentView === 'view-wishes') {
+      return <ViewWishesPage onBack={() => setCurrentView('home')} />;
     }
 
     // Home View Logic
@@ -52,6 +57,7 @@ function App() {
       {/* Only show Action Buttons when on Home view */}
       {currentView === 'home' && (
         <>
+          <ViewWishesButton onClick={() => setCurrentView('view-wishes')} />
           <WishesButton onClick={() => setCurrentView('wishes')} />
           <QuestionButton onClick={() => setCurrentView('questions')} />
         </>
