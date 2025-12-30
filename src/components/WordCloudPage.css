@@ -2,6 +2,7 @@
     min-height: 70vh;
     display: flex;
     flex-direction: column;
+    pointer-events: auto;
 }
 
 .cloud-tabs {
@@ -70,9 +71,11 @@
         gap: 0.5rem;
         width: 100%;
     }
+
     .tab-btn {
         width: 100%;
     }
+
     .cloud-viewer {
         padding: 0.5rem;
     }

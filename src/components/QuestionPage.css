@@ -23,6 +23,8 @@
     flex-direction: column;
     transform: translateZ(0);
     /* Hardware acceleration hack */
+    pointer-events: auto;
+    /* Re-enable pointer events inside the card */
 }
 
 .back-btn {

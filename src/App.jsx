@@ -62,7 +62,9 @@ function App() {
 
       {/* Main Content Area */}
       <div style={{ position: 'relative', zIndex: 10, width: '100%', display: 'flex', justifyContent: 'center' }}>
-        {renderContent()}
+        <div className="content-wrapper" style={{ pointerEvents: 'none', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
+          {renderContent()}
+        </div>
       </div>
 
       {/* Only show Action Buttons when on Home view */}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import './QuestionPage.css';
 
@@ -46,7 +46,84 @@ const QUESTIONS = [
             "D. Cô Tâm"
         ],
         correctAnswer: 3 // Index of "Con Cá Chép"
-    }
+    },
+    {
+        id: 5,
+        question: "Đến mùa gì thì thầy Nhật mới cho Di Thiện vào lớp?",
+        options: [
+            "A. Cam",
+            "B. Bưởi",
+            "C. Quýt",
+            "D. Xoài"
+        ],
+        correctAnswer: 2 // Index of "Con Cá Chép"
+    },
+    {
+        id: 6,
+        question: "Thầy Nhật đã cho Toàn bao nhiêu con 0?",
+        options: [
+            "A. 1",
+            "B. 2",
+            "C. 3",
+            "D. 4"
+        ],
+        correctAnswer: 1// Index of "Con Cá Chép"
+    },
+    {
+        id: 7,
+        question: "Vào năm lớp 6 sĩ số lớp là bao nhiêu?",
+        options: [
+            "A. 40",
+            "B. 41",
+            "C. 42",
+            "D. 43"
+        ],
+        correctAnswer: 0// Index of "Con Cá Chép"
+    },
+    {
+        id: 8,
+        question: "Ai là người bắt Anh Kha lật tài liệu?",
+        options: [
+            "A. Cô Tâm",
+            "B. Cô Vang",
+            "C. Cô Dung",
+            "D. Cô Thảo"
+        ],
+        correctAnswer: 3// Index of "Con Cá Chép"
+    },
+    {
+        id: 9,
+        question: "Vào 2018, chúng ta đã cùng nhau xem bóng đá U23 Việt Nam ở đâu?",
+        options: [
+            "A. Nhà Huệ",
+            "B. Nhà Thiện",
+            "C. Nhà Thư",
+            "D. Nhà cô Tâm"
+        ],
+        correctAnswer: 2// Index of "Con Cá Chép"
+    },
+    {
+        id: 10,
+        question: "Chúng ta đã đi du lịch ở đâu nhất trong 4 năm học cùng nhau?",
+        options: [
+            "A. Biển Nghĩa An",
+            "B. Núi Thiên Bút",
+            "C. Biển Mỹ Khê",
+            "D. Biển Sa Huỳnh"
+        ],
+        correctAnswer: 2// Index of "Con Cá Chép"
+    },
+    {
+        id: 11,
+        question: "Chúng ta đã đi du lịch ở đâu nhất vào năm lớp mấy?",
+        options: [
+            "A. Lớp 6",
+            "B. Lớp 7",
+            "C. Lớp 8",
+            "D. Lớp 9"
+        ],
+        correctAnswer: 2 // Index of "Con Cá Chép"
+    },
 ];
 
 const QuestionPage = ({ onBack }) => {
@@ -55,27 +132,10 @@ const QuestionPage = ({ onBack }) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [showScore, setShowScore] = useState(false);
-    const [hasPlayed, setHasPlayed] = useState(false);
-    const [justFinished, setJustFinished] = useState(false);
 
     // New state for user name
     const [userName, setUserName] = useState('');
     const [isNameSubmitted, setIsNameSubmitted] = useState(false);
-
-    // Check if user has already played when component mounts
-    useEffect(() => {
-        // Allow unlimited plays on localhost/dev
-        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-        if (!isDev) {
-            const playedStatus = localStorage.getItem('tet2026_quiz_played');
-            if (playedStatus === 'true') {
-                setHasPlayed(true);
-                setShowScore(true);
-                setIsNameSubmitted(true); // Skip name input if blocked
-            }
-        }
-    }, []);
 
     const handleStartQuiz = (e) => {
         e.preventDefault();
@@ -86,10 +146,19 @@ const QuestionPage = ({ onBack }) => {
         }
     };
 
+    const handleRestart = () => {
+        setScore(0);
+        setCurrentQuestionIndex(0);
+        setSelectedOption(null);
+        setIsAnswered(false);
+        setShowScore(false);
+        // We keep the userName, so they don't have to re-enter it
+    };
+
     const question = QUESTIONS[currentQuestionIndex];
 
     const handleOptionClick = (index) => {
-        if (isAnswered || hasPlayed) return;
+        if (isAnswered) return;
 
         setSelectedOption(index);
         setIsAnswered(true);
@@ -111,12 +180,9 @@ const QuestionPage = ({ onBack }) => {
     };
 
     const finishQuiz = async () => {
-        setJustFinished(true); // Flag that user just finished now
         setShowScore(true);
-        setHasPlayed(true);
-        localStorage.setItem('tet2026_quiz_played', 'true');
 
-        // Submit to Supabase
+        // Submit to Supabase - but don't block replay
         try {
             const { error } = await supabase
                 .from('quiz_results')
@@ -145,45 +211,24 @@ const QuestionPage = ({ onBack }) => {
 
                 {showScore ? (
                     <div className="score-section">
-                        {justFinished ? (
-                            // Case 1: Just finished - Show Score
-                            <>
-                                <h2>Bạn đã hoàn thành!</h2>
-                                <p className="final-score">
-                                    Điểm số: <span className="highlight-score">{score}</span> / {QUESTIONS.length}
-                                </p>
-                                <p style={{ color: '#94a3b8', marginTop: '1rem' }}>
-                                    (Kết quả đã được lưu. Bạn sẽ không thể chơi lại sau khi thoát trang này.)
-                                </p>
-                                {/* Dev Mode Restart Button */}
-                                {(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && (
-                                    <button
-                                        className="action-btn"
-                                        onClick={() => {
-                                            setHasPlayed(false);
-                                            setShowScore(false);
-                                            setJustFinished(false);
-                                            setCurrentQuestionIndex(0);
-                                            setScore(0);
-                                            setSelectedOption(null);
-                                            setIsAnswered(false);
-                                        }}
-                                        style={{ marginTop: '1rem', background: '#333' }}
-                                    >
-                                        Chơi lại (Dev only)
-                                    </button>
-                                )}
-                            </>
-                        ) : hasPlayed ? (
-                            // Case 2: Returning user - Show Blocked Message
-                            <>
-                                <h2>Bạn đã hết lượt chơi!</h2>
-                                <p className="final-score">
-                                    Cảm ơn bạn đã tham gia minigame kỉ niệm.
-                                </p>
-                            </>
-                        ) : null}
+                        <h2>Kết Quả Của {userName}</h2>
+                        <div className="final-score">
+                            Bạn trả lời đúng <span className="highlight-score">{score}</span> / {QUESTIONS.length} câu
+                        </div>
+                        <p style={{ marginBottom: '2rem', color: '#94a3b8' }}>
+                            {score === QUESTIONS.length ? "Xuất sắc! Bạn là fan cứng của 9A! 🌟" :
+                                score > QUESTIONS.length / 2 ? "Khá lắm! Bạn vẫn nhớ nhiều kỉ niệm đấy! 👍" :
+                                    "Cần ôn lại kỉ niệm gấp nhé! 😅"}
+                        </p>
 
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                            <button className="action-btn" onClick={handleRestart} style={{ background: '#10b981', minWidth: '200px' }}>
+                                🔄 Chơi Lại
+                            </button>
+                            <button className="action-btn" onClick={onBack} style={{ minWidth: '200px' }}>
+                                🏠 Về Trang Chủ
+                            </button>
+                        </div>
                     </div>
                 ) : !isNameSubmitted ? (
                     <form className="quiz-section" onSubmit={handleStartQuiz} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

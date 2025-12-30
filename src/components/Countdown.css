@@ -6,6 +6,8 @@
     gap: 3rem;
     width: 100%;
     animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+    /* Let clicks pass through gaps */
 }
 
 .countdown-title {
@@ -55,6 +57,8 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    /* Re-enable for hover effects */
 }
 
 .time-card::before {

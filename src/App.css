@@ -19,7 +19,9 @@
   position: relative;
   overflow: hidden;
   /* Prevent scrolling unless internal content scrolls */
+  /* pointer-events handled by specific wrappers now */
 }
+
 
 .hero {
   text-align: center;
@@ -29,6 +31,7 @@
   align-items: center;
   gap: 1.5rem;
   animation: fadeIn 0.8s ease-out;
+  pointer-events: none;
 }
 
 .title {

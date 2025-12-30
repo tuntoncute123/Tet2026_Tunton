@@ -8,6 +8,7 @@
     z-index: 200;
     /* Above everything */
     overflow: hidden;
+    pointer-events: auto;
 }
 
 .back-btn-fixed {
@@ -171,6 +172,13 @@
 }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
