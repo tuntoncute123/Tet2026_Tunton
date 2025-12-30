@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import './FloatingGallery.css';
 
 // Dynamically import all images from the assets folder using Vite's import.meta.glob
@@ -9,6 +9,8 @@ const imagesVal = import.meta.glob('../assets/*.{png,jpg,jpeg,svg}', { eager: tr
 const imageList = Object.values(imagesVal).map((img) => img.default);
 
 const FloatingGallery = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+
     const rows = [
         { id: 1, speed: 'slow', direction: 'left' },
         { id: 2, speed: 'medium', direction: 'right' },
@@ -17,12 +19,6 @@ const FloatingGallery = () => {
 
     // Use the number of images found, or default to 8 if none/few to ensure scrolling works
     const framesPerRow = imageList.length > 0 ? Math.max(imageList.length, 8) : 8;
-    // Note: We use Math.max(len, 8) to ensure we have enough frames to fill the screen width 
-    // if there are only a few images (otherwise marquee won't loop correctly). 
-    // But if user STRICTLY wants "equal to number of images" even if 1, 
-    // the UI might look broken (gap). 
-    // Interpret "create more frames" as "show all images". 
-    // I will use Math.max to be safe for UI, but primarily imageList.length.
 
     // Helper to get image for a specific index (cycling through list)
     const getImage = (rowIndex, frameIndex) => {
@@ -33,50 +29,70 @@ const FloatingGallery = () => {
     };
 
     return (
-        <div className="gallery-container">
-            {rows.map((row, rowIndex) => (
-                <div
-                    key={row.id}
-                    className={`gallery-row move-${row.direction} speed-${row.speed}`}
-                >
-                    {/* We duplicate the content to ensure seamless infinite scrolling */}
-                    {/* First copy */}
-                    <div className="row-content">
-                        {[...Array(framesPerRow)].map((_, index) => {
-                            const imgSrc = getImage(rowIndex, index);
-                            return (
-                                <div key={`original-${index}`} className="gallery-frame">
-                                    <div className="frame-inner">
-                                        {imgSrc ? (
-                                            <img src={imgSrc} alt="Memory" loading="lazy" />
-                                        ) : (
-                                            <span>No Images</span>
-                                        )}
+        <>
+            <div className="gallery-container">
+                {rows.map((row, rowIndex) => (
+                    <div
+                        key={row.id}
+                        className={`gallery-row move-${row.direction} speed-${row.speed}`}
+                    >
+                        {/* We duplicate the content to ensure seamless infinite scrolling */}
+                        {/* First copy */}
+                        <div className="row-content">
+                            {[...Array(framesPerRow)].map((_, index) => {
+                                const imgSrc = getImage(rowIndex, index);
+                                return (
+                                    <div
+                                        key={`original-${index}`}
+                                        className="gallery-frame"
+                                        onClick={() => imgSrc && setSelectedImage(imgSrc)}
+                                    >
+                                        <div className="frame-inner">
+                                            {imgSrc ? (
+                                                <img src={imgSrc} alt="Memory" loading="lazy" />
+                                            ) : (
+                                                <span>No Images</span>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
+                        {/* Duplicate copy for loop */}
+                        <div className="row-content">
+                            {[...Array(framesPerRow)].map((_, index) => {
+                                const imgSrc = getImage(rowIndex, index);
+                                return (
+                                    <div
+                                        key={`duplicate-${index}`}
+                                        className="gallery-frame"
+                                        onClick={() => imgSrc && setSelectedImage(imgSrc)}
+                                    >
+                                        <div className="frame-inner">
+                                            {imgSrc ? (
+                                                <img src={imgSrc} alt="Memory" loading="lazy" />
+                                            ) : (
+                                                <span>No Images</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
-                    {/* Duplicate copy for loop */}
-                    <div className="row-content">
-                        {[...Array(framesPerRow)].map((_, index) => {
-                            const imgSrc = getImage(rowIndex, index);
-                            return (
-                                <div key={`duplicate-${index}`} className="gallery-frame">
-                                    <div className="frame-inner">
-                                        {imgSrc ? (
-                                            <img src={imgSrc} alt="Memory" loading="lazy" />
-                                        ) : (
-                                            <span>No Images</span>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                ))}
+            </div>
+
+            {/* Lightbox Modal */}
+            {selectedImage && (
+                <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
+                    <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+                        <img src={selectedImage} alt="Full Memory" className="lightbox-img" />
+                        <button className="lightbox-close" onClick={() => setSelectedImage(null)}>×</button>
                     </div>
                 </div>
-            ))}
-        </div>
+            )}
+        </>
     );
 };
 
