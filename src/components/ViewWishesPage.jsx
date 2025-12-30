@@ -13,13 +13,16 @@ const ViewWishesPage = ({ onBack }) => {
             try {
                 const { data, error } = await supabase
                     .from('wishes')
-                    .select('message') // Only fetch message, ignore name
+                    .select('name, message') // Fetch name and message
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
                 // Add some default wishes if empty so users see something
                 if (!data || data.length === 0) {
-                    setWishes([{ message: "Chúc mừng năm mới!" }, { message: "Vạn sự như ý!" }]);
+                    setWishes([
+                        { name: "Ban Quan Trị", message: "Chúc mừng năm mới! An khang thịnh vượng." },
+                        { name: "Admin", message: "Vạn sự như ý - Tỷ sự như mơ!" }
+                    ]);
                 } else {
                     setWishes(data);
                 }
@@ -86,8 +89,8 @@ const ViewWishesPage = ({ onBack }) => {
                         <p className="modal-message">
                             "{selectedWish.message}"
                         </p>
-                        <p className="modal-footer">
-                            (Lời chúc ẩn danh)
+                        <p className="modal-footer" style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.2rem' }}>
+                            {selectedWish.name ? `Lời chúc từ: ${selectedWish.name}` : "(Ẩn danh)"}
                         </p>
                         <button className="close-modal-btn" onClick={() => setSelectedWish(null)}>
                             Đóng

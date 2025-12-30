@@ -15,7 +15,14 @@ const FloatingGallery = () => {
         { id: 3, speed: 'slow', direction: 'left' },
     ];
 
-    const framesPerRow = 8; // Number of frames in each scrolling row
+    // Use the number of images found, or default to 8 if none/few to ensure scrolling works
+    const framesPerRow = imageList.length > 0 ? Math.max(imageList.length, 8) : 8;
+    // Note: We use Math.max(len, 8) to ensure we have enough frames to fill the screen width 
+    // if there are only a few images (otherwise marquee won't loop correctly). 
+    // But if user STRICTLY wants "equal to number of images" even if 1, 
+    // the UI might look broken (gap). 
+    // Interpret "create more frames" as "show all images". 
+    // I will use Math.max to be safe for UI, but primarily imageList.length.
 
     // Helper to get image for a specific index (cycling through list)
     const getImage = (rowIndex, frameIndex) => {

@@ -10,36 +10,43 @@ import WishesButton from './components/WishesButton';
 import WishesPage from './components/WishesPage';
 import ViewWishesButton from './components/ViewWishesButton';
 import ViewWishesPage from './components/ViewWishesPage';
+import MemoryButton from './components/MemoryButton';
+import MemoryPage from './components/MemoryPage';
+import ViewMemoriesButton from './components/ViewMemoriesButton';
+import ViewMemoriesPage from './components/ViewMemoriesPage';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
 const targetDate = new Date('2026-01-01T00:00:00');
 
 function App() {
-  // 'home' | 'questions' | 'wishes' | 'view-wishes'
+  // 'home' | 'questions' | 'wishes' | 'view-wishes' | 'memory' | 'view-memories'
   const [currentView, setCurrentView] = useState('home');
   const [isNewYear, setIsNewYear] = useState(false);
 
   const renderContent = () => {
-    if (currentView === 'questions') {
-      return <QuestionPage onBack={() => setCurrentView('home')} />;
+    switch (currentView) {
+      case 'questions':
+        return <QuestionPage onBack={() => setCurrentView('home')} />;
+      case 'wishes':
+        return <WishesPage onBack={() => setCurrentView('home')} />;
+      case 'view-wishes':
+        return <ViewWishesPage onBack={() => setCurrentView('home')} />;
+      case 'memory':
+        return <MemoryPage onBack={() => setCurrentView('home')} />;
+      case 'view-memories':
+        return <ViewMemoriesPage onBack={() => setCurrentView('home')} />;
+      default:
+        // Home View Logic
+        return isNewYear ? (
+          <Celebration />
+        ) : (
+          <Countdown
+            targetDate={targetDate}
+            onComplete={() => setIsNewYear(true)}
+          />
+        );
     }
-    if (currentView === 'wishes') {
-      return <WishesPage onBack={() => setCurrentView('home')} />;
-    }
-    if (currentView === 'view-wishes') {
-      return <ViewWishesPage onBack={() => setCurrentView('home')} />;
-    }
-
-    // Home View Logic
-    return isNewYear ? (
-      <Celebration />
-    ) : (
-      <Countdown
-        targetDate={targetDate}
-        onComplete={() => setIsNewYear(true)}
-      />
-    );
   };
 
   return (
@@ -57,6 +64,11 @@ function App() {
       {/* Only show Action Buttons when on Home view */}
       {currentView === 'home' && (
         <>
+          {/* Left Side */}
+          <ViewMemoriesButton onClick={() => setCurrentView('view-memories')} />
+          <MemoryButton onClick={() => setCurrentView('memory')} />
+
+          {/* Right Side */}
           <ViewWishesButton onClick={() => setCurrentView('view-wishes')} />
           <WishesButton onClick={() => setCurrentView('wishes')} />
           <QuestionButton onClick={() => setCurrentView('questions')} />
