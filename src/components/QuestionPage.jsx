@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 import './QuestionPage.css';
 
 const QUESTIONS = [
@@ -57,6 +58,10 @@ const QuestionPage = ({ onBack }) => {
     const [hasPlayed, setHasPlayed] = useState(false);
     const [justFinished, setJustFinished] = useState(false);
 
+    // New state for user name
+    const [userName, setUserName] = useState('');
+    const [isNameSubmitted, setIsNameSubmitted] = useState(false);
+
     // Check if user has already played when component mounts
     useEffect(() => {
         // Allow unlimited plays on localhost/dev
@@ -67,9 +72,19 @@ const QuestionPage = ({ onBack }) => {
             if (playedStatus === 'true') {
                 setHasPlayed(true);
                 setShowScore(true);
+                setIsNameSubmitted(true); // Skip name input if blocked
             }
         }
     }, []);
+
+    const handleStartQuiz = (e) => {
+        e.preventDefault();
+        if (userName.trim()) {
+            setIsNameSubmitted(true);
+        } else {
+            alert("Bạn hãy nhập tên để bắt đầu nhé!");
+        }
+    };
 
     const question = QUESTIONS[currentQuestionIndex];
 
@@ -95,11 +110,28 @@ const QuestionPage = ({ onBack }) => {
         }
     };
 
-    const finishQuiz = () => {
+    const finishQuiz = async () => {
         setJustFinished(true); // Flag that user just finished now
         setShowScore(true);
         setHasPlayed(true);
         localStorage.setItem('tet2026_quiz_played', 'true');
+
+        // Submit to Supabase
+        try {
+            const { error } = await supabase
+                .from('quiz_results')
+                .insert([
+                    { name: userName, score: score, total_questions: QUESTIONS.length }
+                ]);
+
+            if (error) {
+                console.error("Error saving score:", error);
+            } else {
+                console.log("Score saved to Supabase:", { userName, score });
+            }
+        } catch (err) {
+            console.error("Error saving score:", err);
+        }
     };
 
     return (
@@ -153,10 +185,42 @@ const QuestionPage = ({ onBack }) => {
                         ) : null}
 
                     </div>
+                ) : !isNameSubmitted ? (
+                    <form className="quiz-section" onSubmit={handleStartQuiz} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
+                            Chào mừng bạn tham gia minigame tìm hiểu về lớp 9A.
+                            <br />Hãy nhập tên của bạn để bắt đầu nhé!
+                        </p>
+
+                        <input
+                            type="text"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                            placeholder="Nhập tên của bạn..."
+                            style={{
+                                width: '100%',
+                                maxWidth: '400px',
+                                background: 'rgba(255,255,255,0.05)',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '12px',
+                                padding: '1rem',
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                marginBottom: '2rem',
+                                textAlign: 'center',
+                                outline: 'none'
+                            }}
+                            autoFocus
+                        />
+
+                        <button className="action-btn" type="submit">
+                            Bắt đầu ngay &rarr;
+                        </button>
+                    </form>
                 ) : (
                     <div className="quiz-section">
                         <div className="question-indicator">
-                            Câu hỏi {currentQuestionIndex + 1}/{QUESTIONS.length}
+                            Người chơi: <strong style={{ color: '#fbbf24' }}>{userName}</strong> • Câu {currentQuestionIndex + 1}/{QUESTIONS.length}
                         </div>
                         <h2 className="quiz-question">{question.question}</h2>
 
