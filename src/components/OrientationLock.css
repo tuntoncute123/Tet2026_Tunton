@@ -1,0 +1,76 @@
+.orientation-lock-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0f172a;
+    /* Dark background matching theme */
+    z-index: 9999;
+    /* Topmost layer */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.orientation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.phone-icon {
+    font-size: 4rem;
+    animation: rotatePhone 2s infinite ease-in-out;
+}
+
+.rotate-animation {
+    font-size: 3rem;
+    margin-top: 1rem;
+    color: #fbbf24;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fbbf24;
+}
+
+p {
+    color: #94a3b8;
+    max-width: 300px;
+}
+
+/* Only show on mobile devices (max-width check) AND portrait mode */
+@media screen and (max-width: 900px) and (orientation: portrait) {
+    .orientation-lock-overlay {
+        display: flex;
+    }
+}
+
+@keyframes rotatePhone {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(90deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
+    }
+
+    75% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
