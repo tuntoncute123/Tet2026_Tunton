@@ -2,20 +2,18 @@ import { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import './Celebration.css';
 
-const Celebration = () => {
+const Celebration = ({ onClose }) => {
     const titleRef = useRef(null);
 
     useEffect(() => {
-        // Basic explosion
-        const duration = 15 * 1000;
+        // Fireworks configuration
+        const duration = 60 * 1000; // Last for 60 seconds
         const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        const colors = ['#ff0000', '#ffd700', '#ff4500', '#00ff00', '#ffffff']; // Red, Gold, Orange, Green, White
 
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
-        const interval = setInterval(function () {
+        const interval = setInterval(() => {
             const timeLeft = animationEnd - Date.now();
 
             if (timeLeft <= 0) {
@@ -23,18 +21,36 @@ const Celebration = () => {
             }
 
             const particleCount = 50 * (timeLeft / duration);
-            // since particles fall down, start a bit higher than random
+
+            // Firework 1
             confetti({
-                ...defaults,
                 particleCount,
-                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                startVelocity: 30,
+                spread: 360,
+                origin: {
+                    x: randomInRange(0.1, 0.9),
+                    y: Math.random() - 0.2
+                },
+                colors: colors,
+                zIndex: 100 // High z-index to show above text
             });
+
+            // Firework 2 (delayed slightly in loop)
             confetti({
-                ...defaults,
-                particleCount,
-                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                particleCount: particleCount * 0.5,
+                startVelocity: 45,
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8,
+                origin: {
+                    x: randomInRange(0.1, 0.9),
+                    y: Math.random() - 0.2
+                },
+                colors: colors,
+                zIndex: 100
             });
-        }, 250);
+
+        }, 400);
 
         return () => clearInterval(interval);
     }, []);
@@ -57,9 +73,13 @@ const Celebration = () => {
                     <span>2</span>
                     <span>6</span>
                 </div>
-                <p className="wishes">
-                    Wishing you a year filled with new hope, new aspirations, and new happiness.
-                </p>
+
+                <button
+                    className="celebration-home-btn"
+                    onClick={onClose}
+                >
+                    Vào Tiệc Ngay ➜
+                </button>
             </div>
         </div>
     );

@@ -1,12 +1,43 @@
+.celebration-home-btn {
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #d97706, #fbbf24);
+    border: none;
+    border-radius: 99px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeIn 1s ease-out 2s forwards;
+    /* Delay appear */
+    opacity: 0;
+    z-index: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.celebration-home-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.8);
+}
+
 .celebration-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
-    position: relative;
+    z-index: 9999;
+    /* Top of everything */
     overflow: hidden;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    /* Darker sky for fireworks */
 }
 
 .content-wrapper {
@@ -21,15 +52,75 @@
     line-height: 1.1;
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
 }
 
 .text-glow {
-    background: linear-gradient(to right, #fff, #b4c6ef);
+    background: linear-gradient(to right, #ff4d4d, #ffff00, #ff4d4d);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
-    animation: glow 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+    animation: glowText 2s ease-in-out infinite alternate;
+}
+
+/* FIREWORKS CSS EFFECT */
+.firework {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.5vmin;
+    aspect-ratio: 1;
+    background:
+        /* random backgrounds */
+        radial-gradient(circle, #ff0 0.2vmin, #0000 0) 50% 00%,
+        radial-gradient(circle, #ff0 0.3vmin, #0000 0) 00% 50%,
+        radial-gradient(circle, #ff0 0.5vmin, #0000 0) 50% 99%,
+        radial-gradient(circle, #ff0 0.2vmin, #0000 0) 99% 50%,
+        radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 90%,
+        radial-gradient(circle, #ff0 0.5vmin, #0000 0) 95% 90%,
+        radial-gradient(circle, #ff0 0.5vmin, #0000 0) 10% 60%,
+        radial-gradient(circle, #ff0 0.2vmin, #0000 0) 31% 80%,
+        radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 10%,
+        radial-gradient(circle, #ff0 0.2vmin, #0000 0) 90% 23%,
+        radial-gradient(circle, #ff0 0.3vmin, #0000 0) 45% 20%,
+        radial-gradient(circle, #ff0 0.5vmin, #0000 0) 13% 24%;
+    background-size: 0.5vmin 0.5vmin;
+    background-repeat: no-repeat;
+    animation: firework 2s infinite;
+}
+
+.firework:nth-child(2) {
+    top: 20%;
+    left: 20%;
+    animation-duration: 2.5s;
+    animation-delay: 0.5s;
+}
+
+.firework:nth-child(3) {
+    top: 30%;
+    left: 80%;
+    animation-duration: 1.8s;
+    animation-delay: 1.2s;
+}
+
+@keyframes firework {
+    0% {
+        transform: translate(-50%, -50%);
+        width: 0.5vmin;
+        opacity: 1;
+    }
+
+    50% {
+        width: 45vmin;
+        opacity: 1;
+    }
+
+    100% {
+        width: 85vmin;
+        opacity: 0;
+    }
 }
 
 .year-display {
@@ -64,20 +155,22 @@
 
 .wishes {
     font-size: 1.5rem;
-    color: #94a3b8;
+    color: #cbd5e1;
+    /* Lighter text for dark bg */
     max-width: 600px;
     margin: 0 auto;
     opacity: 0;
     animation: fadeIn 1s ease-out 1s forwards;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes glow {
+@keyframes glowText {
     from {
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
     }
 
     to {
-        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
     }
 }
 
@@ -99,6 +192,18 @@
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 640px) {
     .happy-new-year {
         font-size: 3rem;
@@ -112,5 +217,10 @@
     .wishes {
         font-size: 1.1rem;
         padding: 0 1rem;
+    }
+
+    .celebration-home-btn {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
     }
 }

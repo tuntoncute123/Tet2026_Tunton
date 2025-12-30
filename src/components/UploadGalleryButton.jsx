@@ -16,9 +16,9 @@ const UploadGalleryButton = () => {
                 alert('Vui lòng chọn file ảnh!');
                 return;
             }
-            // Validate file size (max 5MB)
-            if (selectedFile.size > 5 * 1024 * 1024) {
-                alert('File ảnh quá lớn (Max 5MB)!');
+            // Validate file size (max 15MB)
+            if (selectedFile.size > 15 * 1024 * 1024) {
+                alert('File ảnh quá lớn (Max 15MB)!');
                 return;
             }
 
@@ -84,7 +84,7 @@ const UploadGalleryButton = () => {
                         </p>
 
                         <div className="upload-input-group">
-                            <label className="file-input-label">Chọn ảnh (Max 5MB)</label>
+                            <label className="file-input-label">Chọn ảnh (Max 15MB)</label>
                             <input
                                 type="file"
                                 accept="image/*"

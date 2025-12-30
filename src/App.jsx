@@ -20,12 +20,14 @@ import UploadGalleryButton from './components/UploadGalleryButton';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
+// Set target to January 1, 2026 00:00:00
 const targetDate = new Date('2026-01-01T00:00:00');
 
 function App() {
   // 'home' | 'questions' | 'wishes' | 'view-wishes' | 'memory' | 'view-memories' | 'word-cloud'
   const [currentView, setCurrentView] = useState('home');
   const [isNewYear, setIsNewYear] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(true);
 
   const renderContent = () => {
     switch (currentView) {
@@ -43,12 +45,22 @@ function App() {
         return <WordCloudPage onBack={() => setCurrentView('home')} />;
       default:
         // Home View Logic
-        return isNewYear ? (
-          <Celebration />
-        ) : (
+        if (isNewYear) {
+          if (showCelebration) {
+            return <Celebration onClose={() => setShowCelebration(false)} />;
+          } else {
+            // Show Countdown (finished state) + Background
+            return <Countdown targetDate={targetDate} />;
+          }
+        }
+
+        return (
           <Countdown
             targetDate={targetDate}
-            onComplete={() => setIsNewYear(true)}
+            onComplete={() => {
+              setIsNewYear(true);
+              setShowCelebration(true);
+            }}
           />
         );
     }
