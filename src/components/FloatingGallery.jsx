@@ -1,6 +1,7 @@
 import { memo, useState, useEffect, useMemo } from 'react';
 import './FloatingGallery.css';
 import { supabase } from '../supabaseClient';
+import GalleryModal from './GalleryModal';
 
 // Dynamically import all images from the assets folder (RECURSIVE)
 // eager: true means they are loaded synchronously at build/run time
@@ -146,14 +147,12 @@ const FloatingGallery = () => {
                 })}
             </div>
 
-            {/* Lightbox Modal */}
+            {/* Lightbox Modal with Interactions */}
             {selectedImage && (
-                <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
-                    <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={selectedImage} alt="Full Memory" className="lightbox-img" />
-                        <button className="lightbox-close" onClick={() => setSelectedImage(null)}>×</button>
-                    </div>
-                </div>
+                <GalleryModal
+                    imageUrl={selectedImage}
+                    onClose={() => setSelectedImage(null)}
+                />
             )}
         </>
     );
