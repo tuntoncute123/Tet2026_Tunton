@@ -16,6 +16,7 @@ import ViewMemoriesButton from './components/ViewMemoriesButton';
 import ViewMemoriesPage from './components/ViewMemoriesPage';
 import WordCloudButton from './components/WordCloudButton';
 import WordCloudPage from './components/WordCloudPage';
+import UploadGalleryButton from './components/UploadGalleryButton';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
@@ -79,6 +80,9 @@ function App() {
           <ViewWishesButton onClick={() => setCurrentView('view-wishes')} />
           <WishesButton onClick={() => setCurrentView('wishes')} />
           <QuestionButton onClick={() => setCurrentView('questions')} />
+
+          {/* Admin / Upload */}
+          <UploadGalleryButton />
         </>
       )}
     </div>

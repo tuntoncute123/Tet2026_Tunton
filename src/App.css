@@ -19,7 +19,16 @@
   position: relative;
   overflow: hidden;
   /* Prevent scrolling unless internal content scrolls */
-  /* pointer-events handled by specific wrappers now */
+  pointer-events: none;
+  /* Critical: Allow clicks to pass through to background */
+}
+
+/* Ensure all interactive elements inside (buttons, inputs) are clickable */
+.app-container button,
+.app-container input,
+.app-container a,
+.app-container textarea {
+  pointer-events: auto;
 }
 
 

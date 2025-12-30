@@ -14,23 +14,32 @@
     opacity: 0.4;
     /* Subtle opacity so it doesn't distract from the main countdown */
     overflow: hidden;
-    /* transform: skewY(-5deg) scale(1.1); REMOVED to fix flickering */
 }
 
 .gallery-row {
-    display: flex;
+    position: relative;
     width: 100%;
-    gap: 2rem;
+    display: flex;
+    overflow: hidden;
     padding: 1rem 0;
+    /* Use mask to fade edges if desired, but keeping simpler for now */
 }
 
-.row-content {
+/* 
+   THE MARQUEE TRACK
+   Contains 2 sets of items.
+   Animation moves it by -50% to create seamless loop.
+*/
+.marquee-track {
     display: flex;
     gap: 2rem;
-    flex-shrink: 0;
-    /* Prevent shrinking */
+    /* Gap between items */
+    width: max-content;
+    /* Ensure it fits all items horizontally */
+    will-change: transform;
 }
 
+/* Make frames click-through-able from track, but clickable themselves */
 .gallery-frame {
     width: 200px;
     height: 140px;
@@ -41,67 +50,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.9rem;
-    font-weight: 500;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    /* Important */
+
+    cursor: pointer;
+    /* Clickable */
+    pointer-events: auto;
+    /* Catch clicks */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Animations without hover pause since it's a background */
-.move-left .row-content {
-    animation: scrollLeft linear infinite;
-}
-
-.move-right .row-content {
-    animation: scrollRight linear infinite;
-}
-
-/* Speeds */
-.speed-slow .row-content {
-    animation-duration: 40s;
-}
-
-.speed-medium .row-content {
-    animation-duration: 30s;
-}
-
-.speed-fast .row-content {
-    animation-duration: 20s;
-}
-
-@keyframes scrollLeft {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(calc(-100% - 2rem));
-    }
-
-    /* 100% + gap */
-}
-
-@keyframes scrollRight {
-    from {
-        transform: translateX(calc(-100% - 2rem));
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .gallery-frame {
-        width: 140px;
-        height: 100px;
-    }
-
-    .gallery-container {
-        /* transform: skewY(-5deg) scale(1.1); REMOVED */
-    }
+.gallery-frame:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .frame-inner {
@@ -118,9 +83,52 @@
     display: block;
 }
 
-.gallery-frame {
-    pointer-events: auto;
-    /* Allow interaction if needed */
+/* Animations */
+.move-left .marquee-track {
+    animation-name: scrollLeft;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.move-right .marquee-track {
+    animation-name: scrollRight;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* 
+   Seamless Loop Logic:
+   Track contains [Set A][Set B] (identical).
+   Move from 0 to -50% (End of Set A).
+   At -50%, Set B is exactly where Set A started.
+   Reset to 0 instantly. Loop continues.
+*/
+@keyframes scrollLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-frame {
+        width: 140px;
+        height: 100px;
+    }
 }
 
 /* Lightbox Styles */
@@ -132,12 +140,14 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
-    z-index: 10000; /* Top of everything */
+    z-index: 10000;
+    /* Top of everything */
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: zoom-out;
     animation: fadeIn 0.3s ease-out;
+    pointer-events: auto;
 }
 
 .lightbox-content {
@@ -173,22 +183,9 @@
     opacity: 1;
 }
 
-.gallery-frame {
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-frame:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    z-index: 10;
-    border-color: rgba(255,255,255,0.5);
-}
-
 @media (max-width: 640px) {
     .lightbox-close {
         top: -40px;
         right: 0;
     }
 }
-

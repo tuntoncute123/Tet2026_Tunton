@@ -1,0 +1,128 @@
+.upload-gallery-btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    /* Opposite to back button or title */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    /* High z-index */
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+    font-size: 1.5rem;
+    /* Increased size slightly for better visibility */
+    line-height: 1;
+    /* Remove vertical gap */
+    padding: 0;
+    padding-bottom: 8px;
+    /* Nudge up more */
+    pointer-events: auto;
+}
+
+.upload-gallery-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Modal Styles Reuse existing modal styles if possible, but defining here for safety */
+.upload-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+    pointer-events: auto;
+}
+
+.upload-modal {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.upload-input-group {
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.file-input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-file-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.upload-submit-btn {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 99px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.upload-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.upload-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 640px) {
+    .upload-gallery-btn {
+        top: 1rem;
+        right: 1rem;
+        /* Adjust for mobile safe area if needed */
+    }
+}

@@ -207,7 +207,7 @@ const QuestionPage = ({ onBack }) => {
                     ← Quay lại
                 </button>
 
-                <h1 className="question-title">Đố Vui Ngày Tết</h1>
+                <h1 className="question-title">Đố Vui Có Thưởng</h1>
 
                 {showScore ? (
                     <div className="score-section">
