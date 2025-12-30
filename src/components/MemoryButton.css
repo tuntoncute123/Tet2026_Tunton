@@ -31,7 +31,7 @@
 
 @media (max-width: 640px) {
     .memory-btn {
-        bottom: 1rem;
+        bottom: calc(1rem + var(--safe-area-bottom));
         /* Stacked on mobile? Or keep left */
         left: 1rem;
         font-size: 0.875rem;

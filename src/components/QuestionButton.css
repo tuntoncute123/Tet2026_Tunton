@@ -32,7 +32,7 @@
 
 @media (max-width: 640px) {
     .question-btn {
-        bottom: 1rem;
+        bottom: calc(1rem + var(--safe-area-bottom));
         right: 1rem;
         font-size: 0.875rem;
         padding: 0.6rem 1.2rem;

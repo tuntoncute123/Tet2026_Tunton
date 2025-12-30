@@ -32,7 +32,7 @@
 
 @media (max-width: 640px) {
     .word-cloud-btn {
-        bottom: 8rem;
+        bottom: calc(8rem + var(--safe-area-bottom));
         /* Stacked on mobile */
         left: 1rem;
         font-size: 0.875rem;

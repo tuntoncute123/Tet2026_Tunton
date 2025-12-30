@@ -31,7 +31,7 @@
 
 @media (max-width: 640px) {
     .view-wishes-btn {
-        bottom: 8rem;
+        bottom: calc(8rem + var(--safe-area-bottom));
         /* Adjusted for mobile spacing (Send is ~4.5 + 3) */
         right: 1rem;
         font-size: 0.875rem;

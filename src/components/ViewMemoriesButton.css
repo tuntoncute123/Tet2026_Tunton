@@ -32,7 +32,7 @@
 
 @media (max-width: 640px) {
     .view-memories-btn {
-        bottom: 4.5rem;
+        bottom: calc(4.5rem + var(--safe-area-bottom));
         /* Stacked on mobile */
         left: 1rem;
         font-size: 0.875rem;
