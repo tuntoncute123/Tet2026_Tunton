@@ -14,13 +14,15 @@ import MemoryButton from './components/MemoryButton';
 import MemoryPage from './components/MemoryPage';
 import ViewMemoriesButton from './components/ViewMemoriesButton';
 import ViewMemoriesPage from './components/ViewMemoriesPage';
+import WordCloudButton from './components/WordCloudButton';
+import WordCloudPage from './components/WordCloudPage';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
 const targetDate = new Date('2026-01-01T00:00:00');
 
 function App() {
-  // 'home' | 'questions' | 'wishes' | 'view-wishes' | 'memory' | 'view-memories'
+  // 'home' | 'questions' | 'wishes' | 'view-wishes' | 'memory' | 'view-memories' | 'word-cloud'
   const [currentView, setCurrentView] = useState('home');
   const [isNewYear, setIsNewYear] = useState(false);
 
@@ -36,6 +38,8 @@ function App() {
         return <MemoryPage onBack={() => setCurrentView('home')} />;
       case 'view-memories':
         return <ViewMemoriesPage onBack={() => setCurrentView('home')} />;
+      case 'word-cloud':
+        return <WordCloudPage onBack={() => setCurrentView('home')} />;
       default:
         // Home View Logic
         return isNewYear ? (
@@ -65,6 +69,7 @@ function App() {
       {currentView === 'home' && (
         <>
           {/* Left Side */}
+          <WordCloudButton onClick={() => setCurrentView('word-cloud')} />
           <ViewMemoriesButton onClick={() => setCurrentView('view-memories')} />
           <MemoryButton onClick={() => setCurrentView('memory')} />
 

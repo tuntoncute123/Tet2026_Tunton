@@ -1,0 +1,65 @@
+.word-cloud-card {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cloud-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+    padding: 0.5rem 1.5rem;
+    border-radius: 99px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: #db2777;
+    border-color: #db2777;
+    color: white;
+    box-shadow: 0 0 15px rgba(219, 39, 119, 0.4);
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cloud-viewer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    min-height: 300px;
+}
+
+.cloud-tag {
+    transition: transform 0.2s;
+}
+
+.cloud-tag:hover {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+.cloud-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tag-cloud-container {
+    text-align: center;
+    width: 100%;
+}
