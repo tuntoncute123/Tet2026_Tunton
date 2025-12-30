@@ -58,10 +58,12 @@
   align-items: flex-start;
   gap: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translate3d(0, -4px, 0);
   box-shadow: var(--shadow-glow);
   border-color: rgba(59, 130, 246, 0.2);
 }

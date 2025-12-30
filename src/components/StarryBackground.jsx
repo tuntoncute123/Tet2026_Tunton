@@ -17,9 +17,9 @@ const StarryBackground = () => {
         return value;
     };
 
-    const starsSm = useMemo(() => generateStars(700), []);
-    const starsMd = useMemo(() => generateStars(200), []);
-    const starsLg = useMemo(() => generateStars(100), []);
+    const starsSm = useMemo(() => generateStars(100), []);
+    const starsMd = useMemo(() => generateStars(50), []);
+    const starsLg = useMemo(() => generateStars(30), []);
 
     return (
         <div className="starry-background">

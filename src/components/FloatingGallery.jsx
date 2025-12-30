@@ -1,13 +1,14 @@
+import { memo } from 'react';
 import './FloatingGallery.css';
 
+// Dynamically import all images from the assets folder using Vite's import.meta.glob
+// eager: true means they are loaded synchronously at build/run time
+const imagesVal = import.meta.glob('../assets/*.{png,jpg,jpeg,svg}', { eager: true });
+
+// Convert the object of modules to an array of image paths
+const imageList = Object.values(imagesVal).map((img) => img.default);
+
 const FloatingGallery = () => {
-    // Dynamically import all images from the assets folder using Vite's import.meta.glob
-    // eager: true means they are loaded synchronously at build/run time
-    const imagesVal = import.meta.glob('../assets/*.{png,jpg,jpeg,svg}', { eager: true });
-
-    // Convert the object of modules to an array of image paths
-    const imageList = Object.values(imagesVal).map((img) => img.default);
-
     const rows = [
         { id: 1, speed: 'slow', direction: 'left' },
         { id: 2, speed: 'medium', direction: 'right' },
@@ -72,4 +73,4 @@ const FloatingGallery = () => {
     );
 };
 
-export default FloatingGallery;
+export default memo(FloatingGallery);
