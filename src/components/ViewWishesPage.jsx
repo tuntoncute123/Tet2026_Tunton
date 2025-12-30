@@ -73,7 +73,14 @@ const ViewWishesPage = ({ onBack }) => {
                             }}
                             onClick={() => setSelectedWish(drop.wish)}
                         >
-                            <div className="envelope-icon">🧧</div>
+                            <div className="envelope-icon bounce">
+                                <svg width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="5" y="10" width="50" height="65" rx="4" fill="#E11D48" stroke="#9F1239" strokeWidth="2" />
+                                    <path d="M5 10 L30 40 L55 10" fill="#FB7185" stroke="#9F1239" strokeWidth="2" />
+                                    <circle cx="30" cy="40" r="8" fill="#FBBF24" stroke="#D97706" strokeWidth="2" />
+                                    <path d="M26 38 L30 42 L34 38" stroke="#92400E" strokeWidth="2" strokeLinecap="round" />
+                                </svg>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -84,7 +91,7 @@ const ViewWishesPage = ({ onBack }) => {
                 <div className="wish-modal-overlay" onClick={() => setSelectedWish(null)}>
                     <div className="wish-modal-content" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
-                            <span className="modal-icon">✨</span>
+                            {/* Icon removed */}
                         </div>
                         <p className="modal-message">
                             "{selectedWish.message}"
