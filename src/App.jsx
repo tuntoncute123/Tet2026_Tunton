@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Countdown from './components/Countdown';
 import Celebration from './components/Celebration';
 import StarryBackground from './components/StarryBackground';
+import FloatingGallery from './components/FloatingGallery';
 import './App.css';
 
 function App() {
@@ -14,14 +15,17 @@ function App() {
   return (
     <div className="app-container">
       <StarryBackground />
-      {isNewYear ? (
-        <Celebration />
-      ) : (
-        <Countdown
-          targetDate={targetDate}
-          onComplete={() => setIsNewYear(true)}
-        />
-      )}
+      <FloatingGallery />
+      <div style={{ position: 'relative', zIndex: 10, width: '100%', display: 'flex', justifyContent: 'center' }}>
+        {isNewYear ? (
+          <Celebration />
+        ) : (
+          <Countdown
+            targetDate={targetDate}
+            onComplete={() => setIsNewYear(true)}
+          />
+        )}
+      </div>
     </div>
   );
 }

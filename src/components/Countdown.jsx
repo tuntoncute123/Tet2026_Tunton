@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react';
 import './Countdown.css';
 
+const TimeUnit = ({ value, label }) => (
+    <div className="time-unit">
+        <div className="time-card">
+            <span className="time-value">
+                {value < 10 ? `0${value}` : value}
+            </span>
+        </div>
+        <span className="time-label">{label}</span>
+    </div>
+);
+
 const Countdown = ({ targetDate, onComplete }) => {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     function calculateTimeLeft() {
         const difference = +new Date(targetDate) - +new Date();
@@ -20,11 +30,13 @@ const Countdown = ({ targetDate, onComplete }) => {
         };
     }
 
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
     useEffect(() => {
         const timer = setInterval(() => {
-            const timeLeft = calculateTimeLeft();
-            setTimeLeft(timeLeft);
-            if (timeLeft.completed) {
+            const newTimeLeft = calculateTimeLeft();
+            setTimeLeft(newTimeLeft);
+            if (newTimeLeft.completed) {
                 clearInterval(timer);
                 onComplete();
             }
@@ -32,17 +44,6 @@ const Countdown = ({ targetDate, onComplete }) => {
 
         return () => clearInterval(timer);
     }, [targetDate, onComplete]);
-
-    const TimeUnit = ({ value, label }) => (
-        <div className="time-unit">
-            <div className="time-card">
-                <span className="time-value">
-                    {value < 10 ? `0${value}` : value}
-                </span>
-            </div>
-            <span className="time-label">{label}</span>
-        </div>
-    );
 
     return (
         <div className="countdown-container">
