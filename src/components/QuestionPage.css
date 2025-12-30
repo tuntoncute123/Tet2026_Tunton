@@ -178,5 +178,17 @@
 
     .question-card {
         padding: 1.5rem;
+        width: 100%;
+        min-height: auto;
+        /* Allow auto height on small screens */
+    }
+
+    .question-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .quiz-question {
+        font-size: 1.2rem;
     }
 }

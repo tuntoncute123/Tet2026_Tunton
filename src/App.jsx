@@ -16,7 +16,6 @@ import ViewMemoriesButton from './components/ViewMemoriesButton';
 import ViewMemoriesPage from './components/ViewMemoriesPage';
 import WordCloudButton from './components/WordCloudButton';
 import WordCloudPage from './components/WordCloudPage';
-import OrientationLock from './components/OrientationLock';
 import './App.css';
 
 // Set target to January 1, 2026 00:00:00
@@ -56,7 +55,6 @@ function App() {
 
   return (
     <div className="app-container">
-      <OrientationLock />
       {/* Persistent Background Elements */}
       <BackgroundMusic />
       <StarryBackground />
