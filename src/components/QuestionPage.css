@@ -39,6 +39,7 @@
     font-size: 0.9rem;
     transition: all 0.2s;
     cursor: pointer;
+    z-index: 10;
 }
 
 .back-btn:hover {
@@ -160,6 +161,79 @@
     font-weight: 800;
     color: #fbbf24;
 }
+
+/* LEDERBOARD STYLES */
+.leaderboard-container {
+    width: 100%;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-rank {
+    width: 30px;
+    font-weight: bold;
+    color: #94a3b8;
+}
+
+.leaderboard-rank.top-1 {
+    color: #fbbf24;
+    font-size: 1.2rem;
+}
+
+.leaderboard-rank.top-2 {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+}
+
+.leaderboard-rank.top-3 {
+    color: #d97706;
+    font-size: 1.1rem;
+}
+
+.leaderboard-name {
+    flex: 1;
+    text-align: left;
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+.leaderboard-score {
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 1.5rem;
+    border-radius: 99px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 
 @keyframes fadeIn {
     from {

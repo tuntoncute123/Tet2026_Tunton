@@ -200,6 +200,31 @@ const QuestionPage = ({ onBack }) => {
         }
     };
 
+    const [showLeaderboard, setShowLeaderboard] = useState(false);
+    const [leaderboard, setLeaderboard] = useState([]);
+    const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
+
+    const fetchLeaderboard = async () => {
+        setLoadingLeaderboard(true);
+        setShowLeaderboard(true);
+        try {
+            const { data, error } = await supabase
+                .from('quiz_results')
+                .select('*')
+                .order('score', { ascending: false })
+                .order('created_at', { ascending: true }) // First to score high gets top
+                .limit(10);
+
+            if (error) throw error;
+            if (data) setLeaderboard(data);
+        } catch (err) {
+            console.error("Error fetching leaderboard:", err);
+            alert("Lỗi tải bảng xếp hạng!");
+        } finally {
+            setLoadingLeaderboard(false);
+        }
+    };
+
     return (
         <div className="question-page-container">
             <div className="question-card">
@@ -209,7 +234,33 @@ const QuestionPage = ({ onBack }) => {
 
                 <h1 className="question-title">Đố Vui Có Thưởng</h1>
 
-                {showScore ? (
+                {showLeaderboard ? (
+                    <div className="leaderboard-section">
+                        <h2>🏆 Bảng Xếp Hạng 🏆</h2>
+                        <div className="leaderboard-container">
+                            {loadingLeaderboard ? (
+                                <p style={{ color: '#94a3b8' }}>Đang tải...</p>
+                            ) : leaderboard.length === 0 ? (
+                                <p style={{ color: '#94a3b8' }}>Chưa có ai chơi cả. Hãy là người đầu tiên!</p>
+                            ) : (
+                                leaderboard.map((entry, index) => (
+                                    <div key={index} className="leaderboard-item">
+                                        <span className={`leaderboard-rank top-${index + 1}`}>#{index + 1}</span>
+                                        <span className="leaderboard-name">{entry.name}</span>
+                                        <span className="leaderboard-score">{entry.score}/{entry.total_questions}</span>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                        <button
+                            className="btn-secondary"
+                            onClick={() => setShowLeaderboard(false)}
+                            style={{ marginTop: '2rem' }}
+                        >
+                            Quay lại trò chơi
+                        </button>
+                    </div>
+                ) : showScore ? (
                     <div className="score-section">
                         <h2>Kết Quả Của {userName}</h2>
                         <div className="final-score">
@@ -222,6 +273,9 @@ const QuestionPage = ({ onBack }) => {
                         </p>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                            <button className="action-btn" onClick={fetchLeaderboard} style={{ background: '#3b82f6', minWidth: '200px' }}>
+                                🏆 Xem Bảng Xếp Hạng
+                            </button>
                             <button className="action-btn" onClick={handleRestart} style={{ background: '#10b981', minWidth: '200px' }}>
                                 🔄 Chơi Lại
                             </button>
@@ -258,9 +312,19 @@ const QuestionPage = ({ onBack }) => {
                             autoFocus
                         />
 
-                        <button className="action-btn" type="submit">
-                            Bắt đầu ngay &rarr;
-                        </button>
+                        <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+                            <button className="action-btn" type="submit" style={{ minWidth: '250px' }}>
+                                Bắt đầu ngay &rarr;
+                            </button>
+                            <button
+                                type="button"
+                                className="btn-secondary"
+                                onClick={fetchLeaderboard}
+                                style={{ minWidth: '250px' }}
+                            >
+                                🏆 Xem Bảng Xếp Hạng
+                            </button>
+                        </div>
                     </form>
                 ) : (
                     <div className="quiz-section">

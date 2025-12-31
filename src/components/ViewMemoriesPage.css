@@ -102,13 +102,13 @@
     }
 
     to {
-        transform: translateX(calc(-100% - 2rem));
+        transform: translateX(-50%);
     }
 }
 
 @keyframes flowRight {
     from {
-        transform: translateX(calc(-100% - 2rem));
+        transform: translateX(-50%);
     }
 
     to {

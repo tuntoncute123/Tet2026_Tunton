@@ -1,104 +1,110 @@
+
 import { useState } from 'react';
-import Countdown from './components/Countdown';
-import Celebration from './components/Celebration';
+import './App.css';
+
+// Core Components
 import StarryBackground from './components/StarryBackground';
 import FloatingGallery from './components/FloatingGallery';
 import BackgroundMusic from './components/BackgroundMusic';
-import QuestionButton from './components/QuestionButton';
-import QuestionPage from './components/QuestionPage';
-import WishesButton from './components/WishesButton';
-import WishesPage from './components/WishesPage';
-import ViewWishesButton from './components/ViewWishesButton';
-import ViewWishesPage from './components/ViewWishesPage';
-import MemoryButton from './components/MemoryButton';
-import MemoryPage from './components/MemoryPage';
-import ViewMemoriesButton from './components/ViewMemoriesButton';
-import ViewMemoriesPage from './components/ViewMemoriesPage';
-import WordCloudButton from './components/WordCloudButton';
-import WordCloudPage from './components/WordCloudPage';
-import UploadGalleryButton from './components/UploadGalleryButton';
-import './App.css';
+import Countdown from './components/Countdown';
+import Celebration from './components/Celebration';
 
-// Set target to January 1, 2026 00:00:00
-// Set target to January 1, 2026 00:00:00
-const targetDate = new Date('2026-01-01T00:00:00');
+// Feature Pages (Modals/Overlays)
+import QuestionPage from './components/QuestionPage';
+import WishesPage from './components/WishesPage';
+import MemoryPage from './components/MemoryPage';
+import ViewMemoriesPage from './components/ViewMemoriesPage';
+import ViewWishesPage from './components/ViewWishesPage';
+import WordCloudPage from './components/WordCloudPage';
+
+// Buttons
+import QuestionButton from './components/QuestionButton';
+import WishesButton from './components/WishesButton';
+import MemoryButton from './components/MemoryButton';
+import ViewMemoriesButton from './components/ViewMemoriesButton';
+import ViewWishesButton from './components/ViewWishesButton';
+import WordCloudButton from './components/WordCloudButton';
+import UploadGalleryButton from './components/UploadGalleryButton';
 
 function App() {
-  // 'home' | 'questions' | 'wishes' | 'view-wishes' | 'memory' | 'view-memories' | 'word-cloud'
-  const [currentView, setCurrentView] = useState('home');
-  const [isNewYear, setIsNewYear] = useState(false);
-  const [showCelebration, setShowCelebration] = useState(true);
+    const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud'
+    const [showCelebration, setShowCelebration] = useState(false);
 
-  const renderContent = () => {
-    switch (currentView) {
-      case 'questions':
-        return <QuestionPage onBack={() => setCurrentView('home')} />;
-      case 'wishes':
-        return <WishesPage onBack={() => setCurrentView('home')} />;
-      case 'view-wishes':
-        return <ViewWishesPage onBack={() => setCurrentView('home')} />;
-      case 'memory':
-        return <MemoryPage onBack={() => setCurrentView('home')} />;
-      case 'view-memories':
-        return <ViewMemoriesPage onBack={() => setCurrentView('home')} />;
-      case 'word-cloud':
-        return <WordCloudPage onBack={() => setCurrentView('home')} />;
-      default:
-        // Home View Logic
-        if (isNewYear) {
-          if (showCelebration) {
-            return <Celebration onClose={() => setShowCelebration(false)} />;
-          } else {
-            // Show Countdown (finished state) + Background
-            return <Countdown targetDate={targetDate} />;
-          }
+    // Return to home screen
+    const handleBack = () => setCurrentView('home');
+
+    // Handle Countdown Completion
+    const handleNewYear = () => {
+        setShowCelebration(true);
+    };
+
+    // Render the active main content
+    const renderContent = () => {
+        switch (currentView) {
+            case 'question':
+                return <QuestionPage onBack={handleBack} />;
+            case 'wishes':
+                return <WishesPage onBack={handleBack} />;
+            case 'memory':
+                return <MemoryPage onBack={handleBack} />;
+            case 'view-memories':
+                return <ViewMemoriesPage onBack={handleBack} />;
+            case 'view-wishes':
+                return <ViewWishesPage onBack={handleBack} />;
+            case 'wordcloud':
+                return <WordCloudPage onBack={handleBack} />;
+            case 'home':
+            default:
+                return (
+                    <>
+                        <div className="hero">
+                            <Countdown targetDate="2026-01-01T00:00:00" onComplete={handleNewYear} />
+                            <p className="subtitle">
+                                Cùng nhau đếm ngược khoảnh khắc tuyệt vời nhất của lớp 9A
+                            </p>
+                        </div>
+
+                        <div className="grid">
+                            {/* Game / Quiz */}
+                            <QuestionButton onClick={() => setCurrentView('question')} />
+
+                            {/* Interaction: Wishes & Memories */}
+                            <WishesButton onClick={() => setCurrentView('wishes')} />
+                            <MemoryButton onClick={() => setCurrentView('memory')} />
+
+                            {/* Viewing Data */}
+                            <ViewMemoriesButton onClick={() => setCurrentView('view-memories')} />
+                            <ViewWishesButton onClick={() => setCurrentView('view-wishes')} />
+                            <WordCloudButton onClick={() => setCurrentView('wordcloud')} />
+
+                            {/* Upload to Background Gallery */}
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <UploadGalleryButton />
+                            </div>
+                        </div>
+                    </>
+                );
         }
+    };
 
-        return (
-          <Countdown
-            targetDate={targetDate}
-            onComplete={() => {
-              setIsNewYear(true);
-              setShowCelebration(true);
-            }}
-          />
-        );
-    }
-  };
+    return (
+        <div className="app-root">
+            {/* Background Layer */}
+            <StarryBackground />
+            <FloatingGallery /> {/* Handles its own clicks & modal */}
 
-  return (
-    <div className="app-container">
-      {/* Persistent Background Elements */}
-      <BackgroundMusic />
-      <StarryBackground />
-      <FloatingGallery />
+            {/* Audio Layer */}
+            <BackgroundMusic />
 
-      {/* Main Content Area */}
-      <div style={{ position: 'relative', zIndex: 10, width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <div className="content-wrapper" style={{ pointerEvents: 'none', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
-          {renderContent()}
+            {/* Celebration Layer (Overlay) */}
+            {showCelebration && <Celebration onClose={() => setShowCelebration(false)} />}
+
+            {/* Main UI Layer */}
+            <main className="app-container">
+                {renderContent()}
+            </main>
         </div>
-      </div>
-
-      {/* Only show Action Buttons when on Home view */}
-      {currentView === 'home' && (
-        <>
-          {/* Left Side */}
-          <WordCloudButton onClick={() => setCurrentView('word-cloud')} />
-          <ViewMemoriesButton onClick={() => setCurrentView('view-memories')} />
-          <MemoryButton onClick={() => setCurrentView('memory')} />
-
-          {/* Right Side */}
-          <ViewWishesButton onClick={() => setCurrentView('view-wishes')} />
-          <WishesButton onClick={() => setCurrentView('wishes')} />
-          <QuestionButton onClick={() => setCurrentView('questions')} />
-
-          {/* Admin / Upload */}
-          <UploadGalleryButton />
-        </>
-      )}
-    </div>
-  );
+    );
 }
 
 export default App;
