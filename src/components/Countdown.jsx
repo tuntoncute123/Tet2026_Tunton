@@ -48,7 +48,7 @@ const Countdown = ({ targetDate, onComplete }) => {
     return (
         <div className="countdown-container">
             <h1 className="countdown-title">
-                Countdown to <span className="highlight">2026</span>
+                Countdown <span className="highlight">2026</span>
             </h1>
             <div className="timer-grid">
                 <TimeUnit value={timeLeft.days} label="Days" />
