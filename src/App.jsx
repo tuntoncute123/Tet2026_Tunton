@@ -17,6 +17,7 @@ import MemoryPage from './components/MemoryPage';
 import ViewMemoriesPage from './components/ViewMemoriesPage';
 import ViewWishesPage from './components/ViewWishesPage';
 import WordCloudPage from './components/WordCloudPage';
+import RegretPage from './components/RegretPage';
 
 // Buttons
 import QuestionButton from './components/QuestionButton';
@@ -26,9 +27,10 @@ import ViewMemoriesButton from './components/ViewMemoriesButton';
 import ViewWishesButton from './components/ViewWishesButton';
 import WordCloudButton from './components/WordCloudButton';
 import UploadGalleryButton from './components/UploadGalleryButton';
+import RegretButton from './components/RegretButton';
 
 function App() {
-    const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud'
+    const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud', 'regret'
     const [showCelebration, setShowCelebration] = useState(false);
 
     // Return to home screen
@@ -54,6 +56,8 @@ function App() {
                 return <ViewWishesPage onBack={handleBack} />;
             case 'wordcloud':
                 return <WordCloudPage onBack={handleBack} />;
+            case 'regret':
+                return <RegretPage onBack={handleBack} />;
             case 'home':
             default:
                 return (
@@ -105,8 +109,14 @@ function App() {
             <main className="app-container">
                 {renderContent()}
             </main>
+
+            {/* Floating Regret Button - Only show on home */}
+            {currentView === 'home' && (
+                <RegretButton onClick={() => setCurrentView('regret')} />
+            )}
         </div>
     );
 }
+
 
 export default App;

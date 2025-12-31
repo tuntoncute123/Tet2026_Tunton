@@ -1,0 +1,44 @@
+.regret-floating-btn {
+    position: fixed;
+    bottom: 14rem;
+    /* Stacked above View Wishes button (10rem) */
+    right: 2rem;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #cbd5e1;
+    padding: 0.8rem 1.2rem;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.regret-floating-btn:hover {
+    transform: translateY(-5px);
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.regret-btn-text {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+    .regret-floating-btn {
+        bottom: calc(11.5rem + var(--safe-area-bottom));
+        /* Above View Wishes (8rem) */
+        right: 1rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .regret-btn-text {
+        font-size: 0.9rem;
+    }
+}
