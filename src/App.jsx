@@ -4,6 +4,7 @@ import './App.css';
 
 // Core Components
 import StarryBackground from './components/StarryBackground';
+import FallingBlossoms from './components/FallingBlossoms';
 import FloatingGallery from './components/FloatingGallery';
 import BackgroundMusic from './components/BackgroundMusic';
 import Countdown from './components/Countdown';
@@ -91,6 +92,7 @@ function App() {
         <div className="app-root">
             {/* Background Layer */}
             <StarryBackground />
+            <FallingBlossoms />
             <FloatingGallery /> {/* Handles its own clicks & modal */}
 
             {/* Audio Layer */}
