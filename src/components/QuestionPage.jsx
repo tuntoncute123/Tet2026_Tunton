@@ -212,8 +212,7 @@ const QuestionPage = ({ onBack }) => {
                 .from('quiz_results')
                 .select('*')
                 .order('score', { ascending: false })
-                .order('created_at', { ascending: true }) // First to score high gets top
-                .limit(10);
+                .order('created_at', { ascending: true }); // First to score high gets top
 
             if (error) throw error;
             if (data) setLeaderboard(data);

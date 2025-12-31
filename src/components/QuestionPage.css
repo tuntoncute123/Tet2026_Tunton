@@ -169,8 +169,22 @@
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 1rem;
-    max-height: 400px;
+    max-height: 60vh;
     overflow-y: auto;
+}
+
+/* Custom Scrollbar for leaderboard */
+.leaderboard-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.leaderboard-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
 }
 
 .leaderboard-item {
