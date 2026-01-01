@@ -1,6 +1,7 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
+import { logVisit } from './utils/logger';
 
 // Core Components
 import StarryBackground from './components/StarryBackground';
@@ -32,6 +33,11 @@ import RegretButton from './components/RegretButton';
 function App() {
     const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud', 'regret'
     const [showCelebration, setShowCelebration] = useState(false);
+
+    // Logging Visit
+    useEffect(() => {
+        logVisit();
+    }, []);
 
     // Return to home screen
     const handleBack = () => setCurrentView('home');

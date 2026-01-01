@@ -104,7 +104,7 @@ const QUESTIONS = [
     },
     {
         id: 10,
-        question: "Chúng ta đã đi du lịch ở đâu nhất trong 4 năm học cùng nhau?",
+        question: "Chúng ta đã đi du lịch lần đầu tiên ở đâu?",
         options: [
             "A. Biển Nghĩa An",
             "B. Núi Thiên Bút",
@@ -115,7 +115,7 @@ const QUESTIONS = [
     },
     {
         id: 11,
-        question: "Chúng ta đã đi du lịch ở đâu nhất vào năm lớp mấy?",
+        question: "Chúng ta đã đi du lịch lần đầu tiên vào năm lớp mấy?",
         options: [
             "A. Lớp 6",
             "B. Lớp 7",
@@ -123,6 +123,61 @@ const QUESTIONS = [
             "D. Lớp 9"
         ],
         correctAnswer: 2 // Index of "Con Cá Chép"
+    },
+    {
+        id: 12,
+        question: "Sau khi đi biển Mỹ Khê, chúng ta đã đi đến đâu tiếp theo?",
+        options: [
+            "A. Núi Thiên Ấn",
+            "B. Về Nhà",
+            "C. Núi Thiên Bút",
+            "D. Vsip"
+        ],
+        correctAnswer: 3 // Index of "Con Cá Chép"
+    },
+    {
+        id: 13,
+        question: "Các bạn Nam đã được tặng gì vào ngày 19/11?",
+        options: [
+            "A. Xương rồng",
+            "B. Hộp quà bí mật",
+            "C. Sen đá",
+            "D. Bút mực"
+        ],
+        correctAnswer: 2 // Index of "Con Cá Chép"
+    },
+    {
+        id: 14,
+        question: "Bữa cuối cùng năm lớp 8 để chuẩn bị nghỉ tết Di Thiện đã bị gì?",
+        options: [
+            "A. Què chân",
+            "B. Què tay",
+            "C. Dị ứng",
+            "D. Cảm sốt"
+        ],
+        correctAnswer: 1 // Index of "Con Cá Chép"
+    },
+    {
+        id: 15,
+        question: "Hãy mô tả nhà thầy Duy? (Theo sự hướng dẫn của thầy)",
+        options: [
+            "A. Có cái cổng",
+            "B. Ở Nghĩa Thương",
+            "C. Đi qua đường ray",
+            "D. Ở La Hà"
+        ],
+        correctAnswer: 1 // Index of "Con Cá Chép"
+    },
+    {
+        id: 16,
+        question: "Chữ đằng sau áo lớp của chúng ta là gì?",
+        options: [
+            "A. AK41",
+            "B. AK45",
+            "C. AK43",
+            "D. AK47"
+        ],
+        correctAnswer: 0 // Index of "Con Cá Chép"
     },
 ];
 
