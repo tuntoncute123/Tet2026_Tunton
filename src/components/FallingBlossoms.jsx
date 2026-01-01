@@ -25,15 +25,13 @@ const FlowerIcon = ({ type }) => {
 };
 
 const FallingBlossoms = () => {
-    const [blossoms, setBlossoms] = useState([]);
-
-    useEffect(() => {
+    const [blossoms] = useState(() => {
         // Create a fixed set of blossoms on mount
         const count = 30; // Number of flowers
-        const newBlossoms = Array.from({ length: count }).map((_, i) => {
+        return Array.from({ length: count }).map((_, i) => {
             const type = Math.random() > 0.5 ? 'peach' : 'apricot'; // Random type
             const left = Math.random() * 100; // Random horizontal position 0-100%
-            const info = {
+            return {
                 id: i,
                 type,
                 style: {
@@ -44,11 +42,8 @@ const FallingBlossoms = () => {
                     animationDelay: `-${Math.random() * 20}s, -${Math.random() * 20}s`, // Start at random times in the cycle
                 }
             };
-            return info;
         });
-
-        setBlossoms(newBlossoms);
-    }, []);
+    });
 
     return (
         <div className="falling-blossoms-container">

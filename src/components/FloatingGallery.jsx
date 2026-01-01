@@ -14,7 +14,14 @@ console.log(`[FloatingGallery] Found ${localImageList.length} local images in as
 
 const FloatingGallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
-    const [remoteImages, setRemoteImages] = useState([]);
+    const [remoteImages, setRemoteImages] = useState(() => {
+        try {
+            const cached = sessionStorage.getItem('gallery_images_cache');
+            return cached ? JSON.parse(cached) : [];
+        } catch (e) {
+            return [];
+        }
+    });
 
     // Fetch remote images from Supabase
     useEffect(() => {
@@ -31,6 +38,7 @@ const FloatingGallery = () => {
                     console.log(`[FloatingGallery] Fetched ${data.length} remote images from Supabase.`);
                     const urls = data.map(item => item.image_url);
                     setRemoteImages(urls);
+                    sessionStorage.setItem('gallery_images_cache', JSON.stringify(urls));
                 }
             } catch (err) {
                 console.error("Unexpected error fetching images:", err);
