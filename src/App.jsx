@@ -63,7 +63,7 @@ function App() {
                 return (
                     <>
                         <div className="hero">
-                            <Countdown targetDate="2026-01-01T00:00:00" onComplete={handleNewYear} />
+                            <Countdown targetDate="2026-02-17T00:00:00" onComplete={handleNewYear} />
                             <p className="subtitle">
                                 Cùng nhau đếm ngược khoảnh khắc tuyệt vời nhất của lớp 9A
                             </p>
