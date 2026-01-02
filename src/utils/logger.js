@@ -9,11 +9,12 @@ export const logVisit = async () => {
             return;
         }
 
-        // 1. Get Public IP
-        const res = await fetch('https://api.ipify.org?format=json');
-        if (!res.ok) throw new Error('Failed to fetch IP');
+        // 1. Get Public IP & Location Data
+        const res = await fetch('https://ipapi.co/json/');
+        if (!res.ok) throw new Error('Failed to fetch IP/Location');
         const data = await res.json();
-        const ip = data.ip;
+
+        const { ip, city, country_name, region, latitude, longitude, org } = data;
 
         // 2. Get Device Info
         const userAgent = navigator.userAgent;
@@ -26,6 +27,12 @@ export const logVisit = async () => {
             .insert([
                 {
                     ip_address: ip,
+                    city: city,
+                    country: country_name,
+                    region: region,
+                    latitude: latitude,
+                    longitude: longitude,
+                    isp: org,
                     user_agent: userAgent,
                     device_type: deviceType
                 }
