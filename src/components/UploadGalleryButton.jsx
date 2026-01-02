@@ -67,6 +67,13 @@ const UploadGalleryButton = () => {
 
     return (
         <>
+            {!isOpen && (
+                <div className="upload-hint-container">
+                    <span className="hint-text">Thêm ảnh tại đây</span>
+                    <span className="hint-arrow">➔</span>
+                </div>
+            )}
+
             <button
                 className="upload-gallery-btn"
                 onClick={() => setIsOpen(true)}

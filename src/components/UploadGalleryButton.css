@@ -125,4 +125,62 @@
         right: 1rem;
         /* Adjust for mobile safe area if needed */
     }
+
+    .upload-hint-container {
+        top: 1.2rem !important;
+        right: 4rem !important;
+    }
+
+    .hint-text {
+        font-size: 0.8rem !important;
+    }
+}
+
+.upload-hint-container {
+    position: fixed;
+    top: 1.8rem;
+    /* Moved up slightly */
+    right: 5rem;
+    /* To the left of the button */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1000;
+    pointer-events: none;
+    animation: flashBounce 2s infinite ease-in-out;
+}
+
+.hint-text {
+    color: #fbbf24;
+    /* Amber/Gold color */
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.5);
+    /* Stronger shadow */
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.hint-arrow {
+    color: #fbbf24;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+}
+
+@keyframes flashBounce {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(-10px);
+        opacity: 0.7;
+    }
 }
