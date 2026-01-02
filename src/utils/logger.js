@@ -9,12 +9,17 @@ export const logVisit = async () => {
             return;
         }
 
-        // 1. Get Public IP & Location Data
-        const res = await fetch('https://ipapi.co/json/');
+        // 1. Get Public IP & Location Data (using ipwho.is - no API key needed)
+        const res = await fetch('https://ipwho.is/');
         if (!res.ok) throw new Error('Failed to fetch IP/Location');
         const data = await res.json();
 
-        const { ip, city, country_name, region, latitude, longitude, org } = data;
+        if (!data.success) {
+            throw new Error(`IP fetch failed: ${data.message}`);
+        }
+
+        const { ip, city, country, region, latitude, longitude, connection } = data;
+        const isp = connection ? connection.isp : 'Unknown';
 
         // 2. Get Device Info
         const userAgent = navigator.userAgent;
@@ -28,11 +33,11 @@ export const logVisit = async () => {
                 {
                     ip_address: ip,
                     city: city,
-                    country: country_name,
+                    country: country,
                     region: region,
                     latitude: latitude,
                     longitude: longitude,
-                    isp: org,
+                    isp: isp,
                     user_agent: userAgent,
                     device_type: deviceType
                 }
