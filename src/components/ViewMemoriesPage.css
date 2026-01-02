@@ -282,13 +282,113 @@
     }
 }
 
-@media (max-width: 640px) {
-    .memory-ticket {
-        width: 220px;
-        height: 140px;
+/* Mobile Optimization */
+.mobile-scroll-view {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .memory-flow-container {
+        overflow: hidden;
+        /* Disable manual scroll, let auto-scroll handle it */
+        height: 100dvh;
+        display: block;
+        padding-top: 80px;
     }
 
     .flow-title {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 0;
+        background: rgba(15, 23, 42, 0.95);
+        z-index: 60;
         font-size: 1.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .back-btn-fixed {
+        position: fixed;
+        z-index: 70;
+        top: 1rem;
+        left: 1rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Hide Desktop Content */
+    .desktop-view {
+        display: none !important;
+    }
+
+    /* Show Mobile Auto-Scroll Content */
+    .mobile-scroll-view {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 80px);
+        /* Fill remaining space */
+        overflow: hidden;
+    }
+
+    .mobile-track-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        animation: scrollUp 40s linear infinite;
+        /* Adjust speed here */
+    }
+
+    /* Pause on touch/hover */
+    .mobile-track-wrapper:hover,
+    .mobile-track-wrapper:active {
+        animation-play-state: paused;
+    }
+
+    .mobile-track-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding-bottom: 1.5rem;
+        /* Spacing between the end of list 1 and start of list 2 */
+        width: 100%;
+    }
+
+    @keyframes scrollUp {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-50%);
+        }
+    }
+
+    /* Card Styling for Mobile */
+    .mobile-ticket {
+        width: 90%;
+        max-width: 340px;
+        background: #fffbeb;
+        padding: 1.5rem;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        /* Ensure flex layout is active */
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 140px;
+        color: #1e293b;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Modal adjustments */
+    .memory-modal-paper {
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 1.5rem;
     }
 }

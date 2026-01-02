@@ -27,17 +27,19 @@ const ViewMemoriesPage = ({ onBack }) => {
         fetchMemories();
     }, []);
 
-    // Split memories into 3 rows for visual variety
-    const rows = useMemo(() => {
-        if (!memories.length) return [[], [], []];
-
-        // Ensure we have enough items to scroll smoothly. 
-        // If few memories, we repeat them.
-        let displayList = [...memories];
-        while (displayList.length < 10) {
-            displayList = [...displayList, ...memories];
+    // Prepare data: Ensure we have enough items for smooth scrolling
+    const displayList = useMemo(() => {
+        if (!memories.length) return [];
+        let list = [...memories];
+        // Repeat until we have at least 10 items for visual density
+        while (list.length < 10) {
+            list = [...list, ...memories];
         }
+        return list;
+    }, [memories]);
 
+    // Split memories into 3 rows for Desktop visual variety
+    const rows = useMemo(() => {
         const row1 = [];
         const row2 = [];
         const row3 = [];
@@ -49,7 +51,7 @@ const ViewMemoriesPage = ({ onBack }) => {
         });
 
         return [row1, row2, row3];
-    }, [memories]);
+    }, [displayList]);
 
     const Row = ({ items, direction, speed }) => (
         <div className={`memory-row ${direction} ${speed}`}>
@@ -91,6 +93,22 @@ const ViewMemoriesPage = ({ onBack }) => {
         </div>
     );
 
+    const MobileCard = ({ mem, index, suffix }) => (
+        <div
+            key={`${mem.id}-${index}-${suffix}`}
+            className="memory-ticket mobile-ticket"
+            onClick={() => setSelectedMemory(mem)}
+        >
+            <div className="ticket-pin">📌</div>
+            <p className="ticket-content">
+                {mem.content}
+            </p>
+            <div className="ticket-footer">
+                <span className="ticket-author">{mem.name}</span>
+            </div>
+        </div>
+    );
+
     return (
         <div className="memory-flow-container">
             <button className="back-btn-fixed" onClick={onBack}>
@@ -104,11 +122,32 @@ const ViewMemoriesPage = ({ onBack }) => {
             ) : memories.length === 0 ? (
                 <div className="empty-state">Chưa có kỉ niệm nào. Hãy là người đầu tiên viết nhé!</div>
             ) : (
-                <div className="flow-content">
-                    <Row items={rows[0]} direction="move-left" speed="slow" />
-                    <Row items={rows[1]} direction="move-right" speed="medium" />
-                    <Row items={rows[2]} direction="move-left" speed="fast" />
-                </div>
+                <>
+                    {/* DESKTOP VIEW */}
+                    <div className="flow-content desktop-view">
+                        <Row items={rows[0]} direction="move-left" speed="slow" />
+                        <Row items={rows[1]} direction="move-right" speed="medium" />
+                        <Row items={rows[2]} direction="move-left" speed="fast" />
+                    </div>
+
+                    {/* MOBILE VIEW (Vertical Auto-Scroll) */}
+                    <div className="mobile-scroll-view">
+                        <div className="mobile-track-wrapper">
+                            {/* Original List */}
+                            <div className="mobile-track-column">
+                                {displayList.map((mem, i) => (
+                                    <MobileCard mem={mem} index={i} suffix="orig" key={`m-orig-${i}`} />
+                                ))}
+                            </div>
+                            {/* Duplicate List for Seamless Loop */}
+                            <div className="mobile-track-column">
+                                {displayList.map((mem, i) => (
+                                    <MobileCard mem={mem} index={i} suffix="dup" key={`m-dup-${i}`} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </>
             )}
 
             {/* Detail Modal */}
