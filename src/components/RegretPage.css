@@ -212,9 +212,27 @@
 @media (max-width: 640px) {
     .regret-card {
         padding: 1.5rem;
+        padding-top: 4rem;
+        /* Push content down significantly */
         height: 100vh;
         width: 100vw;
         border-radius: 0;
+        justify-content: flex-start;
+        /* Ensure content starts from top (with padding) */
+    }
+
+    .regret-title {
+        font-size: 2rem;
+        margin-top: 1rem;
+    }
+
+    .regret-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .regret-form {
+        margin-top: 1rem;
     }
 }
 

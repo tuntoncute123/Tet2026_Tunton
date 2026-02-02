@@ -125,9 +125,17 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .marquee-track {
+        gap: 0.5rem;
+        /* Reduced gap between images significantly (Closer) */
+    }
+
     .gallery-frame {
-        width: 140px;
-        height: 100px;
+        width: 210px;
+        /* 1.5x larger than the previous 140px mobile size */
+        height: 150px;
+        /* 1.5x larger than the previous 100px mobile size */
+        border-radius: 12px;
     }
 }
 

@@ -114,31 +114,46 @@
 
 @media (max-width: 640px) {
     .timer-grid {
-        gap: 0.5rem;
-        /* Reduced gap to fit all 4 items */
+        gap: 0.2rem;
+        /* Extremely tight gap */
         width: 100%;
         justify-content: center;
+        flex-wrap: nowrap;
+        transform-origin: center top;
+        transform: scale(1.15);
+        /* Zoom effect (1.15 to avoid horizontal overflow on 393px, as 1.5 would break layout) */
+        margin-bottom: 2rem;
+        /* Compensate for zoom */
     }
 
     .time-card {
-        width: 72px;
-        /* Optimized for ~393px width */
-        height: 90px;
+        width: 84px;
+        /* Slightly wider base */
+        height: 110px;
+        /* Taller base */
         border-radius: 12px;
+        padding: 0;
     }
 
     .time-value {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        /* ~15% larger textual value */
+        line-height: 1;
+        letter-spacing: -2px;
     }
 
     .time-label {
-        font-size: 0.7rem;
-        /* Smaller label */
-        letter-spacing: 0.1em;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        letter-spacing: 0px;
+        font-weight: 700;
     }
 
     .countdown-title {
         font-size: 1.4rem;
-        padding: 0 0.5rem;
+        padding: 0 1rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        /* Add space for zoomed grid */
     }
 }

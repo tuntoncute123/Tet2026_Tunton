@@ -327,41 +327,41 @@
         display: block;
         position: relative;
         width: 100%;
-        height: calc(100vh - 80px);
-        /* Fill remaining space */
+        height: 100%;
+        /* Fill container */
         overflow: hidden;
+        /* Hide overflow */
     }
 
     .mobile-track-wrapper {
         display: flex;
         flex-direction: column;
         width: 100%;
-        animation: scrollUp 40s linear infinite;
-        /* Adjust speed here */
+        animation: scrollUp linear infinite;
+        animation-duration: 40s;
+        /* Sped up to 40s for clearer movement */
     }
 
-    /* Pause on touch/hover */
-    .mobile-track-wrapper:hover,
-    .mobile-track-wrapper:active {
-        animation-play-state: paused;
-    }
+    /* REMOVED PAUSE ON HOVER to ensure continuous scroll as requested */
+    /* If user wants to stop, they can click a card to open modal */
 
     .mobile-track-column {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
-        padding-bottom: 1.5rem;
-        /* Spacing between the end of list 1 and start of list 2 */
+        /* Gap between cards */
         width: 100%;
+        padding-bottom: 1.5rem;
+        /* Ensure padding matches gap for seamless loop */
     }
 
     @keyframes scrollUp {
-        from {
+        0% {
             transform: translateY(0);
         }
 
-        to {
+        100% {
             transform: translateY(-50%);
         }
     }
@@ -376,12 +376,13 @@
         position: relative;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         display: flex;
-        /* Ensure flex layout is active */
         flex-direction: column;
         justify-content: space-between;
         min-height: 140px;
         color: #1e293b;
         font-family: 'Courier New', Courier, monospace;
+        margin-bottom: 0;
+        /* Let gap handle spacing */
     }
 
     /* Modal adjustments */
