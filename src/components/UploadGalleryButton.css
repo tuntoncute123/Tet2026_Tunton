@@ -121,13 +121,13 @@
 
 @media (max-width: 640px) {
     .upload-gallery-btn {
-        top: 1rem;
+        top: max(1rem, var(--safe-area-top) + 0.5rem);
         right: 1rem;
         /* Adjust for mobile safe area if needed */
     }
 
     .upload-hint-container {
-        top: 1.2rem !important;
+        top: max(1.2rem, var(--safe-area-top) + 0.7rem) !important;
         right: 4rem !important;
     }
 

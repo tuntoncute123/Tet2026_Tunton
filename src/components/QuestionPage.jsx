@@ -177,7 +177,29 @@ const QUESTIONS = [
             "C. AK43",
             "D. AK47"
         ],
-        correctAnswer: 0 // Index of "Con Cá Chép"
+        correctAnswer: 2 // Index of "Con Cá Chép"
+    },
+    {
+        id: 17,
+        question: "Vào tết 2025, cô Tâm đã lì xì cho mỗi đứa bao nhiêu tiền?",
+        options: [
+            "A. 10.000 VNĐ",
+            "B. 20.000 VNĐ",
+            "C. 30.000 VNĐ",
+            "D. 40.000 VNĐ"
+        ],
+        correctAnswer: 1 // Index of "Con Cá Chép"
+    },
+    {
+        id: 18,
+        question: "Vào tết 2025, cô Tâm đã lì xì cho mỗi đứa bao nhiêu tiền?",
+        options: [
+            "A. 10.000 VNĐ",
+            "B. 20.000 VNĐ",
+            "C. 30.000 VNĐ",
+            "D. 40.000 VNĐ"
+        ],
+        correctAnswer: 1 // Index of "Con Cá Chép"
     },
 ];
 
