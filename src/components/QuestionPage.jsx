@@ -192,12 +192,23 @@ const QUESTIONS = [
     },
     {
         id: 18,
-        question: "Vào tết 2025, cô Tâm đã lì xì cho mỗi đứa bao nhiêu tiền?",
+        question: "Ai là người xì lốp xe thầy Thắm?",
         options: [
-            "A. 10.000 VNĐ",
-            "B. 20.000 VNĐ",
-            "C. 30.000 VNĐ",
-            "D. 40.000 VNĐ"
+            "A. Toàn",
+            "B. Thiện",
+            "C. Bảo",
+            "D. Đài"
+        ],
+        correctAnswer: 3 // Index of "Con Cá Chép"
+    },
+    {
+        id: 19,
+        question: "Ai là người làm một cô gái bên lớp khác phải khóc trước sân trường?",
+        options: [
+            "A. Bảo",
+            "B. Kiệt",
+            "C. Nhật",
+            "D. Nam"
         ],
         correctAnswer: 1 // Index of "Con Cá Chép"
     },
