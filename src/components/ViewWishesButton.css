@@ -1,7 +1,7 @@
 .view-wishes-btn {
     position: fixed;
-    bottom: 10rem;
-    /* Stacked above the Send Wishes button (6rem) */
+    bottom: 2rem;
+    /* Postioned at bottom, below Question button */
     right: 2rem;
     background-color: #0ea5e9;
     /* Sky Blue */
@@ -31,7 +31,7 @@
 
 @media (max-width: 640px) {
     .view-wishes-btn {
-        bottom: calc(8rem + var(--safe-area-bottom));
+        bottom: calc(1rem + var(--safe-area-bottom));
         /* Adjusted for mobile spacing (Send is ~4.5 + 3) */
         right: 1rem;
         font-size: 0.875rem;

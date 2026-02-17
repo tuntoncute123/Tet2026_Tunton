@@ -55,7 +55,8 @@ const WishesPage = ({ onBack }) => {
                 ) : (
                     <form className="quiz-section" onSubmit={handleSubmit} style={{ width: '100%' }}>
                         <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
-                            Hãy viết những lời chúc ý nghĩa nhất gửi đến mọi người trong năm 2026 nhé.
+                            Hãy viết những lời chúc ý nghĩa nhất gửi đến mọi người trong năm 2027 nhé.
+
                         </p>
 
                         <div style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'left' }}>

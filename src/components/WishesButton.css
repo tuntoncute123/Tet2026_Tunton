@@ -1,7 +1,7 @@
 .wishes-btn {
     position: fixed;
-    bottom: 6rem;
-    /* Stacked above the Question button (which is at 2rem) */
+    bottom: 10rem;
+    /* Stacked above the Question button */
     right: 2rem;
     background-color: #f59e0b;
     /* Amber/Yellow for wishes */
@@ -31,7 +31,7 @@
 
 @media (max-width: 640px) {
     .wishes-btn {
-        bottom: calc(4.5rem + var(--safe-area-bottom));
+        bottom: calc(8rem + var(--safe-area-bottom));
         /* Adjusted for mobile spacing */
         right: 1rem;
         font-size: 0.875rem;
