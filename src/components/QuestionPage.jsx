@@ -166,7 +166,7 @@ const QUESTIONS = [
             "C. Đi qua đường ray",
             "D. Ở La Hà"
         ],
-        correctAnswer: 1 // Index of "Con Cá Chép"
+        correctAnswer: 0
     },
     {
         id: 16,
@@ -177,7 +177,7 @@ const QUESTIONS = [
             "C. AK43",
             "D. AK47"
         ],
-        correctAnswer: 2 // Index of "Con Cá Chép"
+        correctAnswer: 0 // Index of "Con Cá Chép"
     },
     {
         id: 17,
@@ -210,7 +210,7 @@ const QUESTIONS = [
             "C. Nhật",
             "D. Nam"
         ],
-        correctAnswer: 1 // Index of "Con Cá Chép"
+        correctAnswer: 1
     },
 ];
 
@@ -224,6 +224,19 @@ const QuestionPage = ({ onBack }) => {
     // New state for user name
     const [userName, setUserName] = useState('');
     const [isNameSubmitted, setIsNameSubmitted] = useState(false);
+
+    // Password protection state
+    const [passwordInput, setPasswordInput] = useState('');
+    const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
+
+    const handlePasswordSubmit = (e) => {
+        e.preventDefault();
+        if (passwordInput === '913913') {
+            setIsPasswordCorrect(true);
+        } else {
+            alert("Mật khẩu sai rồi! Vui lòng thử lại.");
+        }
+    };
 
     const handleStartQuiz = (e) => {
         e.preventDefault();
@@ -321,7 +334,38 @@ const QuestionPage = ({ onBack }) => {
 
                 <h1 className="question-title">Đố Vui Có Thưởng</h1>
 
-                {showLeaderboard ? (
+                {!isPasswordCorrect ? (
+                    <form className="quiz-section" onSubmit={handlePasswordSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
+                            🔒 Vui lòng nhập mật khẩu để tiếp tục
+                        </p>
+
+                        <input
+                            type="password"
+                            value={passwordInput}
+                            onChange={(e) => setPasswordInput(e.target.value)}
+                            placeholder="Nhập mật khẩu..."
+                            style={{
+                                width: '100%',
+                                maxWidth: '300px',
+                                background: 'rgba(255,255,255,0.05)',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '12px',
+                                padding: '1rem',
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                marginBottom: '2rem',
+                                textAlign: 'center',
+                                outline: 'none'
+                            }}
+                            autoFocus
+                        />
+
+                        <button className="action-btn" type="submit" style={{ minWidth: '200px' }}>
+                            Xác nhận
+                        </button>
+                    </form>
+                ) : showLeaderboard ? (
                     <div className="leaderboard-section">
                         <h2>🏆 Bảng Xếp Hạng 🏆</h2>
                         <div className="leaderboard-container">
