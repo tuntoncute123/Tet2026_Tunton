@@ -2,29 +2,31 @@
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    /* animation: fadeIn 0.5s ease-out; Removed to fix flickering */
+    animation: fadeIn 0.5s ease-out;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    pointer-events: auto;
+    /* Ensure clickable */
+    z-index: 1000;
 }
 
 .question-card {
+    background: rgba(15, 23, 42, 0.95);
     background: #0f172a;
-    /* Solid color fallback */
-    background: rgba(15, 23, 42, 0.98);
-    /* Almost opaque */
-    /* backdrop-filter: blur(10px); REMOVED for stability */
+    /* Fallback */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    padding: 3rem;
+    padding: 2rem;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     color: white;
     text-align: center;
     position: relative;
-    min-height: 500px;
     display: flex;
     flex-direction: column;
-    transform: translateZ(0);
-    /* Hardware acceleration hack */
-    pointer-events: auto;
-    /* Re-enable pointer events inside the card */
+    max-height: 85vh;
+    /* Prevent it from being taller than viewport */
+    overflow-y: auto;
+    /* Allow scrolling if content is too tall */
 }
 
 .back-btn {
@@ -281,4 +283,71 @@
     .quiz-question {
         font-size: 1.2rem;
     }
+}
+
+/* Image styles */
+/* Image styles */
+.question-image-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 250px;
+    /* Limit height */
+    flex-shrink: 1;
+    /* Allow it to shrink if needed */
+}
+
+.question-image {
+    max-width: 100%;
+    max-height: 100%;
+    /* Fill container */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    object-fit: contain;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.question-image.blur-reveal {
+    animation: blurRevealAnimation 12s forwards;
+}
+
+
+@keyframes blurRevealAnimation {
+    0% {
+        filter: blur(20px);
+    }
+
+    100% {
+        filter: blur(0px);
+    }
+}
+
+/* Timer Bar Styles */
+.timer-section {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.timer-bar-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.timer-bar {
+    height: 100%;
+    background-color: #fbbf24;
+    transition: width 0.1s linear, background-color 0.3s ease;
+}
+
+.points-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    font-weight: 600;
 }

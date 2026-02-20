@@ -49,8 +49,10 @@ function App() {
 
     // Render the active main content
     const renderContent = () => {
+        console.log("App::renderContent rendering view:", currentView);
         switch (currentView) {
             case 'question':
+                console.log("App::Rendering QuestionPage");
                 return <QuestionPage onBack={handleBack} />;
             case 'wishes':
                 return <WishesPage onBack={handleBack} />;
@@ -78,7 +80,10 @@ function App() {
 
                         <div className="grid">
                             {/* Game / Quiz */}
-                            <QuestionButton onClick={() => setCurrentView('question')} />
+                            <QuestionButton onClick={() => {
+                                console.log("Clicked QuestionButton");
+                                setCurrentView('question');
+                            }} />
 
                             {/* Interaction: Wishes & Memories */}
                             <WishesButton onClick={() => setCurrentView('wishes')} />

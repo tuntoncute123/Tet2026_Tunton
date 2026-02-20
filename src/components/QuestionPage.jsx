@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import './QuestionPage.css';
+import question20Image from '../assets/z5162835355820_2857fde9c05d6bb5fd5db577f5886d67.jpg';
 
 const QUESTIONS = [
     {
@@ -212,14 +213,133 @@ const QUESTIONS = [
         ],
         correctAnswer: 1
     },
+    {
+        id: 20,
+        question: "Hình ảnh này chúng ta đang ở đâu?",
+        image: question20Image,
+        options: [
+            "A. Nhà Huệ",
+            "B. Nhà cô Tâm",
+            "C. Nhà cô Vang",
+            "D. Nhà Hồng"
+        ],
+        correctAnswer: 3
+    },
+    {
+        id: 21,
+        question: "Đây là ai?",
+        image: question20Image, // Using same image for demo, user can change later
+        blurReveal: true,
+        options: [
+            "A. Người bí ẩn A",
+            "B. Người bí ẩn B",
+            "C. Người bí ẩn C",
+            "D. Người bí ẩn D"
+        ],
+        correctAnswer: 0
+    },
+    {
+        id: 22,
+        question: "Diễn văn nghệ mashup cùng với bài lạc trôi là bài nào?",
+        options: [
+            "A. Chạy ngay đi",
+            "B. Bố ơi, mình đi đâu thế!",
+            "C. Cha cha cha",
+            "D. Như ngày hôm qua"
+        ],
+        correctAnswer: 1
+    },
+    {
+        id: 23,
+        question: "Năm lớp 9 lớp chúng mình tặng cho thầy cô món quà gì vào dịp 20/11?",
+        options: [
+            "A. Sổ & bút",
+            "B. Không tặng gì cả",
+            "C. Bài hát",
+            "D. Quà lưu niệm"
+        ],
+        correctAnswer: 2
+    },
+    {
+        id: 24,
+        question: "Lần diễn văn nghệ ở nhà văn hóa huyện, lớp chúng ta nhảy mashup 3 bài hát, đó là bài Lạc trôi và 2 bài hát nào?",
+        options: [
+            "A. Save me & Sóng gió",
+            "B. Mình đi đâu thế bố ơi & Việt Nam ơi",
+            "C. Cùng Anh & Đã lỡ yêu em nhiều",
+            "D. Người lạ ơi & Chạy ngay đi"
+        ],
+        correctAnswer: 1
+    },
+    {
+        id: 25,
+        question: "2 bài hát lớp mình hát tặng thầy cô ngày 20/11 được chế lại lời từ 2 bài hát nào?",
+        options: [
+            "A. Bụi phấn & Vợ tuyệt vời nhất",
+            "B. Người thầy & Mái trường mến yêu",
+            "C. Bông hồng tặng cô & Lá thư gửi thầy",
+            "D. Em yêu trường em & Vợ yêu"
+        ],
+        correctAnswer: 0
+    },
+    {
+        id: 26,
+        question: "Trong cuộc thi hội khỏe Phù Đổng cấp trường môn bóng rổ, lớp 9A đạt giải gì?",
+        options: [
+            "A. Giải tán",
+            "B. Giải nhì",
+            "C. Giải nhất",
+            "D. Giải ba"
+        ],
+        correctAnswer: 2
+    },
+    {
+        id: 27,
+        question: "Giáo viên thực tập nào đã thực tập lớp mình tận 2 lần trong 4 năm cấp II?",
+        options: [
+            "A. Cô Nữ",
+            "B. Cô Anh",
+            "C. Cô Nhi",
+            "D. Cô Tuyết"
+        ],
+        correctAnswer: 1
+    },
+    {
+        id: 28,
+        question: "Năm lớp 9, gần nửa lớp 9A đi trễ tiết thể dục vì lý do gì?",
+        options: [
+            "A. Đi ăn",
+            "B. Cấn lịch",
+            "C. Đi lao động",
+            "D. Đi xem phim"
+        ],
+        correctAnswer: 3
+    },
+    {
+        id: 29,
+        question: "2 thành viên nào của lớp mình vinh dự được lên phòng hiệu trưởng ăn mì?",
+        options: [
+            "A. Toàn & Kỳ",
+            "B. Trâm & Kỳ",
+            "C. Trí & Toàn",
+            "D. Trí & Đài"
+        ],
+        correctAnswer: 3
+    },
 ];
 
 const QuestionPage = ({ onBack }) => {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [score, setScore] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Start from 0
+    const [score, setScore] = useState(0); // Correct answer count
+    const [totalPoints, setTotalPoints] = useState(0); // Total accumulated points
+    const [currentPoints, setCurrentPoints] = useState(1000); // Current question points (1000 -> 100)
     const [selectedOption, setSelectedOption] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
+    // Feature Flags / UI State
     const [showScore, setShowScore] = useState(false);
+    const [showLeaderboard, setShowLeaderboard] = useState(false);
+    const [leaderboard, setLeaderboard] = useState([]);
+    const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
 
     // New state for user name
     const [userName, setUserName] = useState('');
@@ -249,12 +369,44 @@ const QuestionPage = ({ onBack }) => {
 
     const handleRestart = () => {
         setScore(0);
+        setTotalPoints(0);
+        setCurrentPoints(1000);
         setCurrentQuestionIndex(0);
         setSelectedOption(null);
         setIsAnswered(false);
         setShowScore(false);
         // We keep the userName, so they don't have to re-enter it
     };
+
+    // Timer Logic
+    useEffect(() => {
+        let interval;
+        if (isNameSubmitted && !isAnswered && !showScore && !showLeaderboard && isPasswordCorrect) {
+            interval = setInterval(() => {
+                setCurrentPoints((prev) => {
+                    if (prev <= 100) {
+                        clearInterval(interval);
+                        return 100;
+                    }
+                    return prev - 5; // Decrease by 5 every 100ms -> 900 points in 18 seconds
+                });
+            }, 100);
+        }
+        return () => clearInterval(interval);
+    }, [currentQuestionIndex, isAnswered, showScore, showLeaderboard, isNameSubmitted, isPasswordCorrect]);
+
+    // Reset points when question changes
+    useEffect(() => {
+        setCurrentPoints(1000);
+    }, [currentQuestionIndex]);
+
+    // Auto-timeout: khi điểm chạm 100 mà chưa chọn đáp án -> hết giờ, hiện đáp án đúng
+    useEffect(() => {
+        if (currentPoints <= 100 && !isAnswered && isNameSubmitted && isPasswordCorrect && !showScore && !showLeaderboard) {
+            setSelectedOption(null); // Không chọn gì = hết giờ
+            setIsAnswered(true);     // Hiện đáp án đúng
+        }
+    }, [currentPoints, isAnswered, isNameSubmitted, isPasswordCorrect, showScore, showLeaderboard]);
 
     const question = QUESTIONS[currentQuestionIndex];
 
@@ -266,6 +418,7 @@ const QuestionPage = ({ onBack }) => {
 
         if (index === question.correctAnswer) {
             setScore(score + 1);
+            setTotalPoints(totalPoints + currentPoints);
         }
     };
 
@@ -288,22 +441,23 @@ const QuestionPage = ({ onBack }) => {
             const { error } = await supabase
                 .from('quiz_results')
                 .insert([
-                    { name: userName, score: score, total_questions: QUESTIONS.length }
+                    {
+                        name: userName,
+                        score: score, // Correct count
+                        points: totalPoints, // Total points
+                        total_questions: QUESTIONS.length
+                    }
                 ]);
 
             if (error) {
                 console.error("Error saving score:", error);
             } else {
-                console.log("Score saved to Supabase:", { userName, score });
+                console.log("Score saved to Supabase:", { userName, score, totalPoints });
             }
         } catch (err) {
             console.error("Error saving score:", err);
         }
     };
-
-    const [showLeaderboard, setShowLeaderboard] = useState(false);
-    const [leaderboard, setLeaderboard] = useState([]);
-    const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
 
     const fetchLeaderboard = async () => {
         setLoadingLeaderboard(true);
@@ -312,7 +466,7 @@ const QuestionPage = ({ onBack }) => {
             const { data, error } = await supabase
                 .from('quiz_results')
                 .select('*')
-                .order('score', { ascending: false })
+                .order('points', { ascending: false })
                 .order('created_at', { ascending: true }); // First to score high gets top
 
             if (error) throw error;
@@ -325,175 +479,263 @@ const QuestionPage = ({ onBack }) => {
         }
     };
 
+
+    // Debug logging
+    useEffect(() => {
+        console.log("State Updated:", {
+            currentQuestionIndex,
+            score,
+            totalPoints,
+            currentPoints,
+            isPasswordCorrect,
+            userName,
+            isNameSubmitted,
+            showLeaderboard,
+            showScore
+        });
+    }, [currentQuestionIndex, score, totalPoints, currentPoints, isPasswordCorrect, userName, isNameSubmitted, showLeaderboard, showScore]);
+
+    const renderContent = () => {
+        // 1. Password Check
+        if (!isPasswordCorrect) {
+            return (
+                <form className="quiz-section" onSubmit={handlePasswordSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
+                        🔒 Vui lòng nhập mật khẩu để tiếp tục
+                    </p>
+
+                    <input
+                        type="password"
+                        value={passwordInput}
+                        onChange={(e) => setPasswordInput(e.target.value)}
+                        placeholder="Nhập mật khẩu..."
+                        style={{
+                            width: '100%',
+                            maxWidth: '300px',
+                            background: 'rgba(255,255,255,0.05)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '12px',
+                            padding: '1rem',
+                            color: 'white',
+                            fontSize: '1.2rem',
+                            marginBottom: '2rem',
+                            textAlign: 'center',
+                            outline: 'none'
+                        }}
+                    />
+
+                    <button className="action-btn" type="submit" style={{ minWidth: '200px' }}>
+                        Xác nhận
+                    </button>
+                </form>
+            );
+        }
+
+        // 2. Leaderboard
+        if (showLeaderboard) {
+            return (
+                <div className="leaderboard-section">
+                    <h2>🏆 Bảng Xếp Hạng 🏆</h2>
+                    <div className="leaderboard-container">
+                        {loadingLeaderboard ? (
+                            <p style={{ color: '#94a3b8' }}>Đang tải...</p>
+                        ) : leaderboard.length === 0 ? (
+                            <p style={{ color: '#94a3b8' }}>Chưa có ai chơi cả. Hãy là người đầu tiên!</p>
+                        ) : (
+                            leaderboard.map((entry, index) => (
+                                <div key={index} className="leaderboard-item">
+                                    <span className={`leaderboard-rank top-${index + 1}`}>#{index + 1}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, marginLeft: '1rem', textAlign: 'left' }}>
+                                        <span className="leaderboard-name">{entry.name}</span>
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                        <span className="leaderboard-points">{entry.points || 0} pts</span>
+                                        <span className="leaderboard-score-detail">{entry.score}/{entry.total_questions} câu</span>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <button
+                        className="btn-secondary"
+                        onClick={() => setShowLeaderboard(false)}
+                        style={{ marginTop: '2rem' }}
+                    >
+                        Quay lại trò chơi
+                    </button>
+                </div>
+            );
+        }
+
+        // 3. Score / Result
+        if (showScore) {
+            return (
+                <div className="score-section">
+                    <h2>Kết Quả Của {userName}</h2>
+                    <div className="final-score">
+                        <p>Điểm số: <span className="highlight-score">{totalPoints}</span></p>
+                        <p style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>Trả lời đúng: {score} / {QUESTIONS.length} câu</p>
+                    </div>
+                    <p style={{ marginBottom: '2rem', color: '#94a3b8' }}>
+                        {score === QUESTIONS.length ? "Xuất sắc! Bạn là fan cứng của 9A! 🌟" :
+                            score > QUESTIONS.length / 2 ? "Khá lắm! Bạn vẫn nhớ nhiều kỉ niệm đấy! 👍" :
+                                "Cần ôn lại kỉ niệm gấp nhé! 😅"}
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                        <button className="action-btn" onClick={fetchLeaderboard} style={{ background: '#3b82f6', minWidth: '200px' }}>
+                            🏆 Xem Bảng Xếp Hạng
+                        </button>
+                        <button className="action-btn" onClick={handleRestart} style={{ background: '#10b981', minWidth: '200px' }}>
+                            🔄 Chơi Lại
+                        </button>
+                        <button className="action-btn" onClick={onBack} style={{ minWidth: '200px' }}>
+                            🏠 Về Trang Chủ
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        // 4. Name Input
+        if (!isNameSubmitted) {
+            return (
+                <form className="quiz-section" onSubmit={handleStartQuiz} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
+                        Chào mừng bạn tham gia minigame tìm hiểu về lớp 9A.
+                        <br />Hãy nhập tên của bạn để bắt đầu nhé!
+                    </p>
+
+                    <input
+                        type="text"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        placeholder="Nhập tên của bạn..."
+                        style={{
+                            width: '100%',
+                            maxWidth: '400px',
+                            background: 'rgba(255,255,255,0.05)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '12px',
+                            padding: '1rem',
+                            color: 'white',
+                            fontSize: '1.2rem',
+                            marginBottom: '2rem',
+                            textAlign: 'center',
+                            outline: 'none'
+                        }}
+                    />
+
+                    <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+                        <button className="action-btn" type="submit" style={{ minWidth: '250px' }}>
+                            Bắt đầu ngay &rarr;
+                        </button>
+                        <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={fetchLeaderboard}
+                            style={{ minWidth: '250px' }}
+                        >
+                            🏆 Xem Bảng Xếp Hạng
+                        </button>
+                    </div>
+                </form>
+            );
+        }
+
+        // 5. Quiz Question
+        if (!question) return <div style={{ color: 'white' }}>Lỗi: Không tìm thấy câu hỏi!</div>;
+
+        return (
+            <div className="quiz-section">
+                <div className="question-indicator">
+                    Người chơi: <strong style={{ color: '#fbbf24' }}>{userName}</strong> • Câu {currentQuestionIndex + 1}/{QUESTIONS.length}
+                </div>
+
+                {/* Progress Bar & Score */}
+                <div className="timer-section">
+                    <div className="timer-bar-container">
+                        <div
+                            className="timer-bar"
+                            style={{
+                                width: `${(Math.max(0, Math.min(1000, currentPoints)) / 1000) * 100}%`,
+                                backgroundColor: currentPoints > 500 ? '#22c55e' : currentPoints > 200 ? '#d97706' : '#ef4444'
+                            }}
+                        ></div>
+                    </div>
+                    <div className="points-display">
+                        <span>Điểm câu hỏi: {currentPoints}</span>
+                        <span>Tổng điểm: {totalPoints}</span>
+                    </div>
+                </div>
+
+                <h2 className="quiz-question">{question.question}</h2>
+
+                {question.image && (
+                    <div className="question-image-container">
+                        <img
+                            src={question.image}
+                            alt="Question illustration"
+                            className={`question-image ${question.blurReveal ? 'blur-reveal' : ''}`}
+                            key={question.id} // Re-trigger animation on new question
+                        />
+                    </div>
+                )}
+
+                <div className="options-grid">
+                    {question.options.map((option, index) => {
+                        let className = "quiz-option";
+                        if (isAnswered) {
+                            if (index === question.correctAnswer) className += " correct";
+                            else if (index === selectedOption) className += " wrong";
+                            else className += " disabled";
+                        }
+
+                        return (
+                            <button
+                                key={index}
+                                className={className}
+                                onClick={() => handleOptionClick(index)}
+                            >
+                                {option}
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {isAnswered && (
+                    <div className="next-btn-container">
+                        {selectedOption === null && (
+                            <p style={{
+                                color: '#f87171',
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                marginBottom: '0.75rem',
+                                animation: 'fadeIn 0.4s ease'
+                            }}>
+                                ⏰ Hết giờ! Đáp án đúng được hiển thị bên trên.
+                            </p>
+                        )}
+                        <button className="action-btn next-btn" onClick={handleNext}>
+                            {currentQuestionIndex < QUESTIONS.length - 1 ? "Câu tiếp theo →" : "Xem kết quả"}
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    console.log("QuestionPage::Rendering JSX");
     return (
         <div className="question-page-container">
-            <div className="question-card">
+            <div className="question-card" style={{ border: '5px solid blue' }}> {/* Extra debug border */}
                 <button className="back-btn" onClick={onBack}>
                     ← Quay lại
                 </button>
 
                 <h1 className="question-title">Đố Vui Có Thưởng</h1>
 
-                {!isPasswordCorrect ? (
-                    <form className="quiz-section" onSubmit={handlePasswordSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
-                            🔒 Vui lòng nhập mật khẩu để tiếp tục
-                        </p>
-
-                        <input
-                            type="password"
-                            value={passwordInput}
-                            onChange={(e) => setPasswordInput(e.target.value)}
-                            placeholder="Nhập mật khẩu..."
-                            style={{
-                                width: '100%',
-                                maxWidth: '300px',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.2)',
-                                borderRadius: '12px',
-                                padding: '1rem',
-                                color: 'white',
-                                fontSize: '1.2rem',
-                                marginBottom: '2rem',
-                                textAlign: 'center',
-                                outline: 'none'
-                            }}
-                            autoFocus
-                        />
-
-                        <button className="action-btn" type="submit" style={{ minWidth: '200px' }}>
-                            Xác nhận
-                        </button>
-                    </form>
-                ) : showLeaderboard ? (
-                    <div className="leaderboard-section">
-                        <h2>🏆 Bảng Xếp Hạng 🏆</h2>
-                        <div className="leaderboard-container">
-                            {loadingLeaderboard ? (
-                                <p style={{ color: '#94a3b8' }}>Đang tải...</p>
-                            ) : leaderboard.length === 0 ? (
-                                <p style={{ color: '#94a3b8' }}>Chưa có ai chơi cả. Hãy là người đầu tiên!</p>
-                            ) : (
-                                leaderboard.map((entry, index) => (
-                                    <div key={index} className="leaderboard-item">
-                                        <span className={`leaderboard-rank top-${index + 1}`}>#{index + 1}</span>
-                                        <span className="leaderboard-name">{entry.name}</span>
-                                        <span className="leaderboard-score">{entry.score}/{entry.total_questions}</span>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                        <button
-                            className="btn-secondary"
-                            onClick={() => setShowLeaderboard(false)}
-                            style={{ marginTop: '2rem' }}
-                        >
-                            Quay lại trò chơi
-                        </button>
-                    </div>
-                ) : showScore ? (
-                    <div className="score-section">
-                        <h2>Kết Quả Của {userName}</h2>
-                        <div className="final-score">
-                            Bạn trả lời đúng <span className="highlight-score">{score}</span> / {QUESTIONS.length} câu
-                        </div>
-                        <p style={{ marginBottom: '2rem', color: '#94a3b8' }}>
-                            {score === QUESTIONS.length ? "Xuất sắc! Bạn là fan cứng của 9A! 🌟" :
-                                score > QUESTIONS.length / 2 ? "Khá lắm! Bạn vẫn nhớ nhiều kỉ niệm đấy! 👍" :
-                                    "Cần ôn lại kỉ niệm gấp nhé! 😅"}
-                        </p>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
-                            <button className="action-btn" onClick={fetchLeaderboard} style={{ background: '#3b82f6', minWidth: '200px' }}>
-                                🏆 Xem Bảng Xếp Hạng
-                            </button>
-                            <button className="action-btn" onClick={handleRestart} style={{ background: '#10b981', minWidth: '200px' }}>
-                                🔄 Chơi Lại
-                            </button>
-                            <button className="action-btn" onClick={onBack} style={{ minWidth: '200px' }}>
-                                🏠 Về Trang Chủ
-                            </button>
-                        </div>
-                    </div>
-                ) : !isNameSubmitted ? (
-                    <form className="quiz-section" onSubmit={handleStartQuiz} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <p className="question-subtitle" style={{ marginBottom: '2rem' }}>
-                            Chào mừng bạn tham gia minigame tìm hiểu về lớp 9A.
-                            <br />Hãy nhập tên của bạn để bắt đầu nhé!
-                        </p>
-
-                        <input
-                            type="text"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                            placeholder="Nhập tên của bạn..."
-                            style={{
-                                width: '100%',
-                                maxWidth: '400px',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.2)',
-                                borderRadius: '12px',
-                                padding: '1rem',
-                                color: 'white',
-                                fontSize: '1.2rem',
-                                marginBottom: '2rem',
-                                textAlign: 'center',
-                                outline: 'none'
-                            }}
-                            autoFocus
-                        />
-
-                        <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-                            <button className="action-btn" type="submit" style={{ minWidth: '250px' }}>
-                                Bắt đầu ngay &rarr;
-                            </button>
-                            <button
-                                type="button"
-                                className="btn-secondary"
-                                onClick={fetchLeaderboard}
-                                style={{ minWidth: '250px' }}
-                            >
-                                🏆 Xem Bảng Xếp Hạng
-                            </button>
-                        </div>
-                    </form>
-                ) : (
-                    <div className="quiz-section">
-                        <div className="question-indicator">
-                            Người chơi: <strong style={{ color: '#fbbf24' }}>{userName}</strong> • Câu {currentQuestionIndex + 1}/{QUESTIONS.length}
-                        </div>
-                        <h2 className="quiz-question">{question.question}</h2>
-
-                        <div className="options-grid">
-                            {question.options.map((option, index) => {
-                                let className = "quiz-option";
-                                if (isAnswered) {
-                                    if (index === question.correctAnswer) className += " correct";
-                                    else if (index === selectedOption) className += " wrong";
-                                    else className += " disabled";
-                                }
-
-                                return (
-                                    <button
-                                        key={index}
-                                        className={className}
-                                        onClick={() => handleOptionClick(index)}
-                                    >
-                                        {option}
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {isAnswered && (
-                            <div className="next-btn-container">
-                                <button className="action-btn next-btn" onClick={handleNext}>
-                                    {currentQuestionIndex < QUESTIONS.length - 1 ? "Câu tiếp theo →" : "Xem kết quả"}
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
+                {renderContent()}
             </div>
         </div>
     );
