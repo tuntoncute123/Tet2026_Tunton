@@ -2,6 +2,16 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import './QuestionPage.css';
 import question20Image from '../assets/z5162835355820_2857fde9c05d6bb5fd5db577f5886d67.jpg';
+import q21Image from '../imageQ/21.png';
+import q22Image from '../imageQ/22.png';
+import q30Image from '../imageQ/30.png';
+import q31Image from '../imageQ/31.png';
+import q32Image from '../imageQ/32.png';
+import q33Video from '../imageQ/33q.mp4';
+import q33AnswerVideo from '../imageQ/33a.mp4';
+import q34Image from '../imageQ/34.png';
+import q35Image from '../imageQ/35.png';
+import q36Image from '../imageQ/36.png';
 
 const QUESTIONS = [
     {
@@ -138,9 +148,9 @@ const QUESTIONS = [
     },
     {
         id: 13,
-        question: "Các bạn Nam đã được tặng gì vào ngày 19/11?",
+        question: "Các bạn Nam đã được tặng gì vào ngày 8/3?",
         options: [
-            "A. Xương rồng",
+            "A. Sổ tay và bút",
             "B. Hộp quà bí mật",
             "C. Sen đá",
             "D. Bút mực"
@@ -217,6 +227,7 @@ const QUESTIONS = [
         id: 20,
         question: "Hình ảnh này chúng ta đang ở đâu?",
         image: question20Image,
+        blurReveal: true,
         options: [
             "A. Nhà Huệ",
             "B. Nhà cô Tâm",
@@ -228,27 +239,30 @@ const QUESTIONS = [
     {
         id: 21,
         question: "Đây là ai?",
-        image: question20Image, // Using same image for demo, user can change later
+        image: q21Image,
         blurReveal: true,
         options: [
-            "A. Người bí ẩn A",
-            "B. Người bí ẩn B",
-            "C. Người bí ẩn C",
-            "D. Người bí ẩn D"
+            "A. Kim Huệ",
+            "B. Quỳnh Hương",
+            "C. Thanh Nhàn",
+            "D. Ly Na"
         ],
-        correctAnswer: 0
+        correctAnswer: 2
     },
     {
         id: 22,
-        question: "Diễn văn nghệ mashup cùng với bài lạc trôi là bài nào?",
+        question: "Đây là ai?",
+        image: q22Image,
+        blurReveal: true,
         options: [
-            "A. Chạy ngay đi",
-            "B. Bố ơi, mình đi đâu thế!",
-            "C. Cha cha cha",
-            "D. Như ngày hôm qua"
+            "A. Kim Huệ",
+            "B. Quỳnh Hương",
+            "C. Thanh Nhàn",
+            "D. Ly Na"
         ],
         correctAnswer: 1
     },
+
     {
         id: 23,
         question: "Năm lớp 9 lớp chúng mình tặng cho thầy cô món quà gì vào dịp 20/11?",
@@ -324,7 +338,98 @@ const QUESTIONS = [
             "C. Trí & Toàn",
             "D. Trí & Đài"
         ],
+        correctAnswer: 1
+    },
+    {
+        id: 30,
+        question: "Lúc này đang làm gì?",
+        image: q30Image,
+        blurReveal: true,
+        options: [
+            "A. Học môn Lý",
+            "B. Học môn Toán",
+            "C. Học địa lý",
+            "D. Giờ ra chơi"
+        ],
+        correctAnswer: 1
+    },
+    {
+        id: 31,
+        question: "Đây là ai?",
+        image: q31Image,
+        blurReveal: true,
+        options: [
+            "A. Hoàng Kỳ",
+            "B. Ngọc Bảo",
+            "C. Hữu Bằng",
+            "D. Lợi Trần"
+        ],
         correctAnswer: 3
+    },
+    {
+        id: 32,
+        question: "Đây là cặp đôi nào?",
+        image: q32Image,
+        blurReveal: true,
+        options: [
+            "A. Na & Trí",
+            "B. Bảo & An",
+            "C. Kiệt & Na",
+            "D. Tân & Hằng"
+        ],
+        correctAnswer: 3
+    },
+    {
+        id: 33,
+        question: "Hãy điền từ vào chỗ còn thiếu: Bởi vì tụi em rất ...?",
+        video: q33Video,
+        answerVideo: q33AnswerVideo,
+        options: [
+            "A. Đẳng cấp",
+            "B. Xinh đẹp",
+            "C. Professional",
+            "D. Vip pro"
+        ],
+        correctAnswer: 3
+    },
+    {
+        id: 34,
+        question: "Đây là ai?",
+        image: q34Image,
+        blurReveal: true,
+        options: [
+            "A. Quỳnh Hương",
+            "B. Kim Huệ",
+            "C. Trâm Anh",
+            "D. Mai Vân"
+        ],
+        correctAnswer: 1
+    },
+    {
+        id: 35,
+        question: "Đây là ai?",
+        image: q35Image,
+        blurReveal: true,
+        options: [
+            "A. Hương & Huệ",
+            "B. An & Na",
+            "C. Huệ & Nhàn",
+            "D. Trang & Trâm"
+        ],
+        correctAnswer: 2
+    },
+    {
+        id: 36,
+        question: "Đứa khóc, đứa muốn về sớm. Đây là ai?",
+        image: q36Image,
+        blurReveal: true,
+        options: [
+            "A. Nam & Huệ",
+            "B. Hưng & An",
+            "C. Phương & Huệ",
+            "D. Nam & Trâm"
+        ],
+        correctAnswer: 2
     },
 ];
 
@@ -395,11 +500,6 @@ const QuestionPage = ({ onBack }) => {
         return () => clearInterval(interval);
     }, [currentQuestionIndex, isAnswered, showScore, showLeaderboard, isNameSubmitted, isPasswordCorrect]);
 
-    // Reset points when question changes
-    useEffect(() => {
-        setCurrentPoints(1000);
-    }, [currentQuestionIndex]);
-
     // Auto-timeout: khi điểm chạm 100 mà chưa chọn đáp án -> hết giờ, hiện đáp án đúng
     useEffect(() => {
         if (currentPoints <= 100 && !isAnswered && isNameSubmitted && isPasswordCorrect && !showScore && !showLeaderboard) {
@@ -427,6 +527,7 @@ const QuestionPage = ({ onBack }) => {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setSelectedOption(null);
             setIsAnswered(false);
+            setCurrentPoints(1000);
         } else {
             // Quiz Finished
             finishQuiz();
@@ -671,7 +772,33 @@ const QuestionPage = ({ onBack }) => {
 
                 <h2 className="quiz-question">{question.question}</h2>
 
-                {question.image && (
+                {question.video && !isAnswered && (
+                    <div className="question-video-container" style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                        <video
+                            src={question.video}
+                            autoPlay
+                            controls={false}
+                            className="question-video"
+                            style={{ maxWidth: '100%', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}
+                            key={`q-video-${question.id}`}
+                        />
+                    </div>
+                )}
+
+                {question.answerVideo && isAnswered && (
+                    <div className="question-video-container" style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                        <video
+                            src={question.answerVideo}
+                            autoPlay
+                            controls={false}
+                            className="question-video"
+                            style={{ maxWidth: '100%', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}
+                            key={`a-video-${question.id}`}
+                        />
+                    </div>
+                )}
+
+                {question.image && !question.video && !question.answerVideo && (
                     <div className="question-image-container">
                         <img
                             src={question.image}
