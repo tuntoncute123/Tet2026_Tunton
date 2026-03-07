@@ -1,0 +1,882 @@
+.gift-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInGift 0.4s ease-out;
+}
+
+@keyframes fadeInGift {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gift-modal-content {
+    background: radial-gradient(circle at 30% 30%, #2a1a3e 0%, #1a1a2e 50%, #0f0f1e 100%);
+    border: 3px solid rgba(255, 192, 203, 0.8);
+    border-radius: 28px;
+    width: 90%;
+    max-width: 900px;
+    height: 85vh;
+    max-height: 700px;
+    box-shadow: 0 25px 50px -12px rgba(220, 80, 130, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 105, 180, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: slideUpGift 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 430px) {
+    .gift-modal-content {
+        width: 95%;
+        height: 80vh;
+        max-height: 600px;
+        border-radius: 20px;
+    }
+    .gift-modal-close {
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    .gift-modal-badge {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+        top: 15px;
+    }
+}
+
+@keyframes slideUpGift {
+    from {
+        transform: translateY(40px) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* UI Elements */
+
+.gift-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #ec4899;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(236, 72, 153, 0.4);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.gift-modal-close:hover {
+    background: #db2777;
+    transform: scale(1.1);
+}
+
+.gift-modal-badge {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.85);
+    color: #475569;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+
+/* Background Stars */
+
+.gift-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gift-star {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-radius: 50%;
+    animation: twinkle 4s infinite ease-in-out alternate;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.3);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 1);
+    }
+}
+
+
+/* ==================== HỘP QUÀ ==================== */
+
+.gift-box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 50;
+}
+
+.gift-box-wrapper {
+    position: relative;
+    animation: shakeGift 1s ease-in-out infinite;
+}
+
+@keyframes shakeGift {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: rotate(-5deg);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: rotate(5deg);
+    }
+}
+
+.gift-box {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.gift-box-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 140px;
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.3), inset 5px 5px 20px rgba(255, 255, 255, 0.1);
+}
+
+.gift-box-lid {
+    position: absolute;
+    top: 40px;
+    left: -10px;
+    width: 220px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff1744 0%, #c62828 100%);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -5px 20px rgba(255, 23, 68, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.3), inset 3px 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.gift-ribbon-horizontal {
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    width: 240px;
+    height: 25px;
+    background: linear-gradient(to bottom, #ffd700 0%, #daa520 100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.gift-ribbon-vertical {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 200px;
+    background: linear-gradient(to right, #ffd700 0%, #daa520 100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.gift-bow {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 60px;
+}
+
+.bow-left,
+.bow-right {
+    position: absolute;
+    top: 0;
+    width: 35px;
+    height: 40px;
+    background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+    border-radius: 50% 50% 50% 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bow-left {
+    left: 0;
+    transform: rotate(-45deg);
+}
+
+.bow-right {
+    right: 0;
+    transform: rotate(45deg) scaleX(-1);
+}
+
+.bow-center {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #ffed4e 0%, #daa520 100%);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.gift-box-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 20px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(5px);
+}
+
+.gift-click-hint {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffd700;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    animation: pulse 1.5s ease-in-out infinite;
+    white-space: nowrap;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+
+/* ==================== NỘI DUNG SAU KHI MỞ QUÀ ==================== */
+
+.gift-opened-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    animation: fadeInContent 1s ease-out;
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Confetti */
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.confetti {
+    position: absolute;
+    top: -10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: fallConfetti 3s linear forwards;
+    box-shadow: 0 0 8px currentColor;
+}
+
+@keyframes fallConfetti {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+
+/* Container cho hoa và gấu */
+
+.gifts-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    z-index: 20;
+    position: relative;
+}
+
+
+/* Sparkles */
+
+.sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 20px;
+    animation: sparkleFloat 3s ease-in-out infinite;
+    opacity: 0;
+}
+
+@keyframes sparkleFloat {
+    0%,
+    100% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-20px) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* Bó hoa */
+
+.flower-bouquet {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    animation: scaleInBounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    position: relative;
+}
+
+.flower-bouquet::before {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 105, 180, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes glowPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+.bouquet-icon {
+    font-size: 220px;
+    line-height: 1;
+    animation: rotateIn 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, breathe 3s ease-in-out 2s infinite;
+    filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.6));
+}
+
+@keyframes breathe {
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.05) rotate(3deg);
+    }
+}
+
+@keyframes rotateIn {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.15) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.bouquet-roses {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: -1rem;
+}
+
+.rose {
+    font-size: 70px;
+    line-height: 1;
+    animation: popInRose 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, sway 2.5s ease-in-out infinite;
+    opacity: 0;
+    filter: drop-shadow(0 8px 20px rgba(220, 20, 60, 0.4));
+}
+
+.rose:nth-child(1) {
+    animation-delay: 0.8s, 2.5s;
+}
+
+.rose:nth-child(2) {
+    animation-delay: 1s, 2.7s;
+    font-size: 80px;
+}
+
+.rose:nth-child(3) {
+    animation-delay: 1.2s, 2.9s;
+}
+
+@keyframes sway {
+    0%,
+    100% {
+        transform: rotate(-5deg) translateY(0);
+    }
+    50% {
+        transform: rotate(5deg) translateY(-3px);
+    }
+}
+
+@keyframes popInRose {
+    0% {
+        transform: scale(0) translateY(50px);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2) translateY(-5px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleInBounce {
+    0% {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    to {
+        transform: scale(1);
+    }
+}
+
+
+/* Gấu bông */
+
+.teddy-bear {
+    width: 280px;
+    height: 360px;
+    animation: scaleInBounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards, floatBear 3.5s ease-in-out 2s infinite;
+    opacity: 0;
+    position: relative;
+}
+
+.teddy-bear::before {
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3.5s ease-in-out 0.5s infinite;
+    z-index: -1;
+}
+
+@keyframes floatBear {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.teddy-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+}
+
+.bear-part {
+    transform: scale(0);
+    transform-origin: center;
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+
+/* Thông điệp */
+
+.gift-message {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: 800;
+    animation: fadeInUp 1s ease-out 1.5s forwards;
+    opacity: 0;
+    z-index: 30;
+    padding: 1rem 2rem;
+    text-align: center;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 2px solid rgba(255, 105, 180, 0.3);
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    line-height: 1.3;
+}
+
+.message-text {
+    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out 2.5s infinite;
+    text-align: center;
+    display: block;
+}
+
+.message-emoji {
+    font-size: 2rem;
+    animation: heartBeat 1.5s ease-in-out 3s infinite;
+}
+
+@keyframes heartBeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+
+/* Mobile responsive */
+
+@media (max-width: 768px) {
+    .gift-opened-content {
+        padding: 1rem 0.5rem;
+        justify-content: space-evenly;
+    }
+    .gifts-display {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    .flower-bouquet {
+        width: 220px;
+        height: 220px;
+        gap: 0.8rem;
+    }
+    .bouquet-icon {
+        font-size: 140px;
+    }
+    .rose {
+        font-size: 45px;
+    }
+    .rose:nth-child(2) {
+        font-size: 55px;
+    }
+    .teddy-bear {
+        width: 190px;
+        height: 240px;
+    }
+    .gift-message {
+        position: relative;
+        bottom: auto;
+        font-size: 1rem;
+        white-space: normal;
+        max-width: 90%;
+        padding: 0.7rem 1.5rem;
+        gap: 0.2rem;
+        margin-top: 0.5rem;
+    }
+    .message-emoji {
+        font-size: 1.3rem;
+    }
+    .gift-box {
+        width: 160px;
+        height: 160px;
+    }
+    .gift-box-body {
+        width: 160px;
+        height: 112px;
+    }
+    .gift-box-lid {
+        width: 176px;
+        left: -8px;
+    }
+    .gift-ribbon-horizontal {
+        width: 192px;
+    }
+    .gift-ribbon-vertical {
+        height: 170px;
+        top: -48px;
+    }
+}
+
+/* Màn hình nhỏ (iPhone 13, 14, 15 Pro) */
+@media (max-width: 430px) {
+    .gift-opened-content {
+        padding: 0.8rem 0.5rem;
+        justify-content: space-evenly;
+    }
+    .gifts-display {
+        gap: 0.3rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    .flower-bouquet {
+        width: 180px;
+        height: 180px;
+        gap: 0.5rem;
+    }
+    .bouquet-icon {
+        font-size: 110px;
+    }
+    .rose {
+        font-size: 38px;
+    }
+    .rose:nth-child(2) {
+        font-size: 46px;
+    }
+    .teddy-bear {
+        width: 160px;
+        height: 200px;
+    }
+    .gift-message {
+        position: relative;
+        bottom: auto;
+        font-size: 0.9rem;
+        max-width: 95%;
+        padding: 0.6rem 1.2rem;
+        gap: 0.15rem;
+        margin-top: 0.3rem;
+    }
+    .message-text {
+        font-size: 0.85rem;
+    }
+    .message-emoji {
+        font-size: 1.1rem;
+    }
+    .gift-box {
+        width: 140px;
+        height: 140px;
+    }
+    .gift-box-body {
+        width: 140px;
+        height: 98px;
+    }
+    .gift-box-lid {
+        width: 154px;
+        height: 44px;
+        left: -7px;
+        top: 35px;
+    }
+    .gift-ribbon-horizontal {
+        width: 168px;
+        height: 22px;
+    }
+    .gift-ribbon-vertical {
+        height: 148px;
+        width: 22px;
+        top: -42px;
+    }
+    .gift-bow {
+        width: 70px;
+        height: 50px;
+        top: 18px;
+    }
+    .bow-left,
+    .bow-right {
+        width: 30px;
+        height: 35px;
+    }
+    .bow-center {
+        width: 18px;
+        height: 18px;
+        top: 12px;
+    }
+    .gift-click-hint {
+        font-size: 1rem;
+        bottom: -50px;
+    }
+}
+
+/* Màn hình rất nhỏ (iPhone SE, iPhone 12 mini) */
+@media (max-width: 390px) {
+    .gift-opened-content {
+        padding: 0.6rem 0.3rem;
+        justify-content: space-evenly;
+    }
+    .gifts-display {
+        gap: 0.2rem;
+        flex-shrink: 0;
+    }
+    .flower-bouquet {
+        width: 160px;
+        height: 160px;
+    }
+    .bouquet-icon {
+        font-size: 95px;
+    }
+    .rose {
+        font-size: 32px;
+    }
+    .rose:nth-child(2) {
+        font-size: 40px;
+    }
+    .teddy-bear {
+        width: 140px;
+        height: 180px;
+    }
+    .gift-message {
+        position: relative;
+        bottom: auto;
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        margin-top: 0.2rem;
+        gap: 0.1rem;
+    }
+    .message-text {
+        font-size: 0.75rem;
+    }
+    .message-emoji {
+        font-size: 1rem;
+    }
+}

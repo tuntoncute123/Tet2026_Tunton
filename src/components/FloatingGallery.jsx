@@ -5,7 +5,8 @@ import GalleryModal from './GalleryModal';
 
 // Dynamically import all images from the assets folder (RECURSIVE)
 // eager: true means they are loaded synchronously at build/run time
-const imagesVal = import.meta.glob('../assets/**/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+const imagesVal =
+    import.meta.glob('../assets/**/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
 // Convert the object of modules to an array of image paths
 const localImageList = Object.values(imagesVal).map((img) => img.default);
@@ -25,7 +26,7 @@ const FloatingGallery = () => {
 
     // Fetch remote images from Supabase
     useEffect(() => {
-        const fetchRemoteImages = async () => {
+        const fetchRemoteImages = async() => {
             try {
                 const { data, error } = await supabase
                     .from('gallery_images')
@@ -76,8 +77,8 @@ const FloatingGallery = () => {
     const framesPerRow = imageList.length > 0 ? Math.max(imageList.length, 10) : 10;
 
     // Base duration per frame (seconds) to maintain constant visual speed
-    // e.g., 3s per frame. Faster flow.
-    const baseDuration = framesPerRow * 3;
+    // Original speed was 3s per frame. Adjusted to 1.5s per frame (2x faster than original)
+    const baseDuration = framesPerRow * 1.5;
 
     // Helper to get image for a specific index (cycling through list)
     const getImage = (rowIndex, frameIndex) => {
@@ -87,82 +88,93 @@ const FloatingGallery = () => {
         return imageList[totalIndex % imageList.length];
     };
 
-    return (
-        <>
-            <div className="gallery-container">
-                {rows.map((row, rowIndex) => {
-                    // Adjust speed multiplier
-                    let speedMult = 1;
-                    if (row.speed === 'fast') speedMult = 0.7; // Faster = less time
-                    if (row.speed === 'slow') speedMult = 1.1; // Slower = slightly more time
+    return ( <
+        >
+        <
+        div className = "gallery-container" > {
+            rows.map((row, rowIndex) => {
+                // Adjust speed multiplier
+                let speedMult = 1;
+                if (row.speed === 'fast') speedMult = 0.7; // Faster = less time
+                if (row.speed === 'slow') speedMult = 1.1; // Slower = slightly more time
 
-                    const finalDuration = `${baseDuration * speedMult}s`;
+                const finalDuration = `${baseDuration * speedMult}s`;
 
-                    return (
-                        <div
-                            key={row.id}
-                            className={`gallery-row move-${row.direction}`}
-                        // Container handles positioning and overflow
-                        >
-                            <div
-                                className="marquee-track"
-                                style={{
-                                    animationDuration: finalDuration
-                                }}
-                            >
-                                {/* First set of items */}
-                                {[...Array(framesPerRow)].map((_, index) => {
-                                    const imgSrc = getImage(rowIndex, index);
-                                    return (
-                                        <div
-                                            key={`original-${index}`}
-                                            className="gallery-frame"
-                                            onClick={() => imgSrc && setSelectedImage(imgSrc)}
-                                        >
-                                            <div className="frame-inner">
-                                                {imgSrc ? (
-                                                    <img src={imgSrc} alt="Memory" loading="lazy" />
-                                                ) : (
-                                                    <span>No Images</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                return ( <
+                    div key = { row.id }
+                    className = { `gallery-row move-${row.direction}` }
+                    // Container handles positioning and overflow
+                    >
+                    <
+                    div className = "marquee-track"
+                    style = {
+                        {
+                            animationDuration: finalDuration
+                        }
+                    } >
+                    { /* First set of items */ } {
+                        [...Array(framesPerRow)].map((_, index) => {
+                            const imgSrc = getImage(rowIndex, index);
+                            return ( <
+                                div key = { `original-${index}` }
+                                className = "gallery-frame"
+                                onClick = {
+                                    () => imgSrc && setSelectedImage(imgSrc) } >
+                                <
+                                div className = "frame-inner" > {
+                                    imgSrc ? ( <
+                                        img src = { imgSrc }
+                                        alt = "Memory"
+                                        loading = "lazy" / >
+                                    ) : ( <
+                                        span > No Images < /span>
+                                    )
+                                } <
+                                /div> <
+                                /div>
+                            );
+                        })
+                    }
 
-                                {/* Duplicate set for seamless loop */}
-                                {[...Array(framesPerRow)].map((_, index) => {
-                                    const imgSrc = getImage(rowIndex, index);
-                                    return (
-                                        <div
-                                            key={`duplicate-${index}`}
-                                            className="gallery-frame"
-                                            onClick={() => imgSrc && setSelectedImage(imgSrc)}
-                                        >
-                                            <div className="frame-inner">
-                                                {imgSrc ? (
-                                                    <img src={imgSrc} alt="Memory" loading="lazy" />
-                                                ) : (
-                                                    <span>No Images</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+                    { /* Duplicate set for seamless loop */ } {
+                        [...Array(framesPerRow)].map((_, index) => {
+                            const imgSrc = getImage(rowIndex, index);
+                            return ( <
+                                div key = { `duplicate-${index}` }
+                                className = "gallery-frame"
+                                onClick = {
+                                    () => imgSrc && setSelectedImage(imgSrc) } >
+                                <
+                                div className = "frame-inner" > {
+                                    imgSrc ? ( <
+                                        img src = { imgSrc }
+                                        alt = "Memory"
+                                        loading = "lazy" / >
+                                    ) : ( <
+                                        span > No Images < /span>
+                                    )
+                                } <
+                                /div> <
+                                /div>
+                            );
+                        })
+                    } <
+                    /div> <
+                    /div>
+                );
+            })
+        } <
+        /div>
 
-            {/* Lightbox Modal with Interactions */}
-            {selectedImage && (
-                <GalleryModal
-                    imageUrl={selectedImage}
-                    onClose={() => setSelectedImage(null)}
+        { /* Lightbox Modal with Interactions */ } {
+            selectedImage && ( <
+                GalleryModal imageUrl = { selectedImage }
+                onClose = {
+                    () => setSelectedImage(null) }
                 />
-            )}
-        </>
+            )
+        } <
+        />
     );
 };
 

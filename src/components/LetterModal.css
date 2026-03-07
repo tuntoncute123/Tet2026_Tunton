@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+.letter-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 192, 203, 0.2);
+    /* very light pink overlay */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInLetter 0.5s ease;
+}
+
+@keyframes fadeInLetter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.letter-modal-content {
+    position: relative;
+    background: rgba(255, 240, 245, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 3px solid rgba(255, 182, 193, 0.8);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    min-height: 450px;
+    box-shadow: 0 20px 40px rgba(220, 80, 130, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 1);
+    padding: 3rem 2rem 2rem;
+    /* space for close btn */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: scaleInLetter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleInLetter {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.letter-modal-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #ec4899;
+    color: white;
+    border: 2px solid white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(236, 72, 153, 0.4);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.letter-modal-close:hover {
+    background: #db2777;
+    transform: scale(1.1) rotate(90deg);
+}
+
+.letter-paper {
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+.letter-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: #880e4f;
+    margin: 0;
+    white-space: pre-wrap;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+
+/* Mobile (iPhone 12 Pro and similar) */
+
+@media (max-width: 430px) {
+    .letter-modal-content {
+        width: 95%;
+        max-width: 360px;
+        min-height: 400px;
+        padding: 2.5rem 1.5rem 1.5rem;
+        border-radius: 16px;
+    }
+    .letter-modal-close {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+        top: -10px;
+        right: -10px;
+    }
+    .letter-text {
+        font-size: 1.3rem;
+        line-height: 1.9rem;
+    }
+    .letter-signature {
+        margin-top: 1rem;
+    }
+    .signature-text {
+        font-size: 1.4rem;
+    }
+    .signature-illustration {
+        font-size: 1.5rem;
+    }
+    /* simulate padding on indent lines if needed */
+}
+
+.letter-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: #ec4899;
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blinkCursor 0.8s infinite step-start;
+}
+
+@keyframes blinkCursor {
+    50% {
+        opacity: 0;
+    }
+}
+
+.letter-signature {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    animation: fadeSignature 2s forwards;
+    animation-delay: 4s;
+    /* delays depending on reading time, simpler via pure CSS or you can manage in JS. For now just fade in slowly. */
+    opacity: 0;
+}
+
+@keyframes fadeSignature {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.signature-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #d81b60;
+}
+
+.signature-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(200, 50, 100, 0.1);
+    animation: float-cute 3s ease-in-out infinite;
+}
+
+@keyframes float-cute {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+}

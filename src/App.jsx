@@ -19,6 +19,7 @@ import ViewMemoriesPage from './components/ViewMemoriesPage';
 import ViewWishesPage from './components/ViewWishesPage';
 import WordCloudPage from './components/WordCloudPage';
 import RegretPage from './components/RegretPage';
+import March8Page from './components/March8Page';
 
 // Buttons
 import QuestionButton from './components/QuestionButton';
@@ -29,15 +30,22 @@ import ViewWishesButton from './components/ViewWishesButton';
 import WordCloudButton from './components/WordCloudButton';
 import UploadGalleryButton from './components/UploadGalleryButton';
 import RegretButton from './components/RegretButton';
+import March8Button from './components/March8Button';
 
 function App() {
-    const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud', 'regret'
+    const [currentView, setCurrentView] = useState('home'); // 'home', 'question', 'wishes', 'memory', 'view-wishes', 'view-memories', 'wordcloud', 'regret', 'march8'
     const [showCelebration, setShowCelebration] = useState(false);
 
     // Logging Visit
     useEffect(() => {
-        logVisit();
+        if (window.location.pathname !== '/8-thang-3') {
+            logVisit();
+        }
     }, []);
+
+    if (window.location.pathname === '/8-thang-3') {
+        return <March8Page onBack={() => window.location.href = '/'} />;
+    }
 
     // Return to home screen
     const handleBack = () => setCurrentView('home');
@@ -124,7 +132,10 @@ function App() {
 
             {/* Floating Regret Button - Only show on home */}
             {currentView === 'home' && (
-                <RegretButton onClick={() => setCurrentView('regret')} />
+                <>
+                    <RegretButton onClick={() => setCurrentView('regret')} />
+                    <March8Button onClick={() => window.location.href = '/8-thang-3'} />
+                </>
             )}
         </div>
     );

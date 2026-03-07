@@ -1,0 +1,3 @@
+# Ignore component files to prevent formatter corruption
+src/components/*.jsx
+src/components/*.css
