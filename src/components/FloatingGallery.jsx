@@ -88,10 +88,8 @@ const FloatingGallery = () => {
         return imageList[totalIndex % imageList.length];
     };
 
-    return ( <
-        >
-        <
-        div className = "gallery-container" > {
+    return ( <>
+        <div className = "gallery-container" > {
             rows.map((row, rowIndex) => {
                 // Adjust speed multiplier
                 let speedMult = 1;
@@ -100,13 +98,11 @@ const FloatingGallery = () => {
 
                 const finalDuration = `${baseDuration * speedMult}s`;
 
-                return ( <
-                    div key = { row.id }
+                return ( <div key = { row.id }
                     className = { `gallery-row move-${row.direction}` }
                     // Container handles positioning and overflow
                     >
-                    <
-                    div className = "marquee-track"
+                    <div className = "marquee-track"
                     style = {
                         {
                             animationDuration: finalDuration
@@ -115,23 +111,17 @@ const FloatingGallery = () => {
                     { /* First set of items */ } {
                         [...Array(framesPerRow)].map((_, index) => {
                             const imgSrc = getImage(rowIndex, index);
-                            return ( <
-                                div key = { `original-${index}` }
+                            return ( <div key = { `original-${index}` }
                                 className = "gallery-frame"
                                 onClick = {
                                     () => imgSrc && setSelectedImage(imgSrc) } >
-                                <
-                                div className = "frame-inner" > {
-                                    imgSrc ? ( <
-                                        img src = { imgSrc }
+                                <div className = "frame-inner" > {
+                                    imgSrc ? ( <img src = { imgSrc }
                                         alt = "Memory"
-                                        loading = "lazy" / >
-                                    ) : ( <
-                                        span > No Images < /span>
+                                        loading = "lazy" />
+                                    ) : ( <span > No Images </span>
                                     )
-                                } <
-                                /div> <
-                                /div>
+                                } </div> </div>
                             );
                         })
                     }
@@ -139,42 +129,31 @@ const FloatingGallery = () => {
                     { /* Duplicate set for seamless loop */ } {
                         [...Array(framesPerRow)].map((_, index) => {
                             const imgSrc = getImage(rowIndex, index);
-                            return ( <
-                                div key = { `duplicate-${index}` }
+                            return ( <div key = { `duplicate-${index}` }
                                 className = "gallery-frame"
                                 onClick = {
                                     () => imgSrc && setSelectedImage(imgSrc) } >
-                                <
-                                div className = "frame-inner" > {
-                                    imgSrc ? ( <
-                                        img src = { imgSrc }
+                                <div className = "frame-inner" > {
+                                    imgSrc ? ( <img src = { imgSrc }
                                         alt = "Memory"
-                                        loading = "lazy" / >
-                                    ) : ( <
-                                        span > No Images < /span>
+                                        loading = "lazy" />
+                                    ) : ( <span > No Images </span>
                                     )
-                                } <
-                                /div> <
-                                /div>
+                                } </div> </div>
                             );
                         })
-                    } <
-                    /div> <
-                    /div>
+                    } </div> </div>
                 );
             })
-        } <
-        /div>
+        } </div>
 
         { /* Lightbox Modal with Interactions */ } {
-            selectedImage && ( <
-                GalleryModal imageUrl = { selectedImage }
+            selectedImage && ( <GalleryModal imageUrl = { selectedImage }
                 onClose = {
                     () => setSelectedImage(null) }
                 />
             )
-        } <
-        />
+        } </>
     );
 };
 

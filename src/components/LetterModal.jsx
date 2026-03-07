@@ -47,16 +47,13 @@ const LetterModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
         }
     };
 
-    return ( < div className = "letter-modal-overlay"
-        onClick = { handleBackdropClick } > < div className = "letter-modal-content"
+    return ( <div className = "letter-modal-overlay"
+        onClick = { handleBackdropClick } > <div className = "letter-modal-content"
         ref = { modalRef }
-        onClick = { e => e.stopPropagation() } > < button className = "letter-modal-close"
-        onClick = { onClose } > ✕ < /button><div className="letter-paper" ><p className="letter-text" > { displayedText } <span className="letter-cursor" ></span > < /
-        p > < /div><div className="letter-signature" ><span className="signature-text" > Mãi xinh đẹp nhá</span > { /* Minh hoạ gấu ôm tim */ } < div className = "signature-illustration" > < span style = {
+        onClick = { e => e.stopPropagation() } > <button className = "letter-modal-close"
+        onClick = { onClose } > ✕ </button><div className="letter-paper" ><p className="letter-text" > { displayedText } <span className="letter-cursor" ></span> </p> </div><div className="letter-signature" ><span className="signature-text" > Mãi xinh đẹp nhá</span> { /* Minh hoạ gấu ôm tim */ } <div className = "signature-illustration" > <span style = {
             { fontSize: '2rem' }
-        } > 🧸💕 < /span></
-        div > < /div></
-        div > < /div>
+        } > 🧸💕 </span></div> </div></div> </div>
     );
 };
 

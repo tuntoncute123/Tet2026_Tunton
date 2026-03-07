@@ -88,69 +88,40 @@ const ImageGalleryModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
     const row1Loop = [...row1, ...row1, ...row1];
     const row2Loop = [...row2, ...row2, ...row2];
 
-    return ( <
-        div className = "img-modal-overlay"
+    return ( <div className = "img-modal-overlay"
         onClick = { handleBackdropClick } >
-        <
-        div className = "img-modal-content"
+        <div className = "img-modal-content"
         ref = { modalRef }
         onClick = { e => e.stopPropagation() } >
 
-        { /* Header trang trí thỏ/gấu */ } <
-        div className = "img-modal-header" >
-        <
-        div className = "img-modal-mascot" > 🐰 < /div> <
-        h2 className = "img-modal-title" > HAPPY INTERNATIONAL WOMEN 'S DAY</h2> <
-        button className = "img-modal-close"
-        onClick = { onClose } > ✕ < /button> <
-        /div>
+        { /* Header trang trí thỏ/gấu */ } <div className = "img-modal-header" >
+        <div className = "img-modal-mascot" > 🐰 </div> <h2 className = "img-modal-title" > HAPPY INTERNATIONAL WOMEN 'S DAY</h2> <button className = "img-modal-close"
+        onClick = { onClose } > ✕ </button> </div>
 
-        { /* Khu vực 2 dòng cuộn */ } <
-        div className = "img-gallery-scroller" > { /* Hàng 1 cuộn sang trái */ } <
-        div className = "img-scroll-row go-left" >
-        <
-        div className = "img-scroll-track" > {
-            row1Loop.map((img, i) => ( <
-                div key = { `row1-${i}` }
+        { /* Khu vực 2 dòng cuộn */ } <div className = "img-gallery-scroller" > { /* Hàng 1 cuộn sang trái */ } <div className = "img-scroll-row go-left" >
+        <div className = "img-scroll-track" > {
+            row1Loop.map((img, i) => ( <div key = { `row1-${i}` }
                 className = "img-scroll-item" >
-                <
-                img src = { img.url }
+                <img src = { img.url }
                 alt = { `Gallery 1-${i}` }
-                /> <
-                /div>
+                /> </div>
             ))
-        } <
-        /div> <
-        /div>
+        } </div> </div>
 
-        { /* Hàng 2 cuộn sang phải (ngược lại) */ } <
-        div className = "img-scroll-row go-right" >
-        <
-        div className = "img-scroll-track" > {
-            row2Loop.map((img, i) => ( <
-                div key = { `row2-${i}` }
+        { /* Hàng 2 cuộn sang phải (ngược lại) */ } <div className = "img-scroll-row go-right" >
+        <div className = "img-scroll-track" > {
+            row2Loop.map((img, i) => ( <div key = { `row2-${i}` }
                 className = "img-scroll-item" >
-                <
-                img src = { img.url }
+                <img src = { img.url }
                 alt = { `Gallery 2-${i}` }
-                /> <
-                /div>
+                /> </div>
             ))
-        } <
-        /div> <
-        /div> <
-        /div>
+        } </div> </div> </div>
 
-        { /* Footer trang trí chó/gấu ôm tim */ } <
-        div className = "img-modal-footer" >
-        <
-        h2 className = "img-modal-title small" > HAPPY INTERNATIONAL WOMEN 'S DAY</h2> <
-        div className = "img-modal-mascot" > 🐶❤️ < /div> <
-        /div>
+        { /* Footer trang trí chó/gấu ôm tim */ } <div className = "img-modal-footer" >
+        <h2 className = "img-modal-title small" > HAPPY INTERNATIONAL WOMEN 'S DAY</h2> <div className = "img-modal-mascot" > 🐶❤️ </div> </div>
 
-        <
-        /div> <
-        /div>
+        </div> </div>
     );
 };
 

@@ -345,15 +345,15 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
             return `${m}:${s.toString().padStart(2, '0')}`;
         };
 
-        return ( < div className = "music-modal-overlay"
-            onClick = { onClose } > < div className = "music-modal-content"
+        return ( <div className = "music-modal-overlay"
+            onClick = { onClose } > <div className = "music-modal-content"
             ref = { modalRef }
-            onClick = { e => e.stopPropagation() } > { /* Hidden YouTube Player */ } < div id = "youtube-player"
+            onClick = { e => e.stopPropagation() } > { /* Hidden YouTube Player */ } <div id = "youtube-player"
             style = {
                 { display: 'none' }
-            } > < /div>
+            } > </div>
 
-            { /* Header */ } < div className = "music-modal-header" > < div className = "music-modal-title-wrapper" > < svg className = "music-modal-icon"
+            { /* Header */ } <div className = "music-modal-header" > <div className = "music-modal-title-wrapper" > <svg className = "music-modal-icon"
             xmlns = "http://www.w3.org/2000/svg"
             width = "20"
             height = "20"
@@ -362,27 +362,27 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
             stroke = "currentColor"
             strokeWidth = "2.5"
             strokeLinecap = "round"
-            strokeLinejoin = "round" > < path d = "M9 18V5l12-2v13" > < /path><circle cx="6"
+            strokeLinejoin = "round" > <path d = "M9 18V5l12-2v13" > </path><circle cx="6"
             cy = "18"
-            r = "3" > < /circle><circle cx="18"
+            r = "3" > </circle><circle cx="18"
             cy = "16"
-            r = "3" > < /circle></svg > < span className = "music-modal-title" > Music Player < /span></div > < button className = "music-modal-close"
-            onClick = { onClose } > ✕ < /button></div >
+            r = "3" > </circle></svg> <span className = "music-modal-title" > Music Player </span></div> <button className = "music-modal-close"
+            onClick = { onClose } > ✕ </button></div>
 
-            { /* Album Cover */ } < div className = "music-album-cover" > < img src = { currentSong.cover }
+            { /* Album Cover */ } <div className = "music-album-cover" > <img src = { currentSong.cover }
             alt = { currentSong.title }
-            /><div className="music-album-overlay"></div > < /div>
+            /><div className="music-album-overlay"></div> </div>
 
-            { /* Song Info */ } < div className = "music-song-info" > < h3 className = "music-song-title" > { currentSong.title } < /h3><p className="music-song-artist"> { currentSong.artist } </p > {
-                currentSong.youtubeId && < span className = "music-youtube-badge" > 🎵YouTube < /span>} </div >
+            { /* Song Info */ } <div className = "music-song-info" > <h3 className = "music-song-title" > { currentSong.title } </h3><p className="music-song-artist"> { currentSong.artist } </p> {
+                currentSong.youtubeId && <span className = "music-youtube-badge" > 🎵YouTube </span>} </div>
 
-                { /* Progress Bar */ } < div className = "music-progress-container" > < span className = "music-time-label" > { formatTime(currentTime) } < /span><div className="music-progress-bar"><div className="music-progress-fill"
+                { /* Progress Bar */ } <div className = "music-progress-container" > <span className = "music-time-label" > { formatTime(currentTime) } </span><div className="music-progress-bar"><div className="music-progress-fill"
                 style = {
                     { width: `${progress}%` }
-                } > < /div></div > < span className = "music-time-label" > { formatTime(duration || 180) } < /span></div >
+                } > </div></div> <span className = "music-time-label" > { formatTime(duration || 180) } </span></div>
 
-                { /* Controls */ } < div className = "music-controls" > < button className = "music-control-btn"
-                onClick = { handlePrev } > < svg xmlns = "http://www.w3.org/2000/svg"
+                { /* Controls */ } <div className = "music-controls" > <button className = "music-control-btn"
+                onClick = { handlePrev } > <svg xmlns = "http://www.w3.org/2000/svg"
                 width = "24"
                 height = "24"
                 viewBox = "0 0 24 24"
@@ -390,12 +390,12 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
                 stroke = "currentColor"
                 strokeWidth = "2"
                 strokeLinecap = "round"
-                strokeLinejoin = "round" > < polygon points = "19 20 9 12 19 4 19 20" > < /polygon><line x1="5"
+                strokeLinejoin = "round" > <polygon points = "19 20 9 12 19 4 19 20" > </polygon><line x1="5"
                 y1 = "19"
                 x2 = "5"
-                y2 = "5" > < /line></svg > < /button><button className="music-control-btn music-play-btn"
+                y2 = "5" > </line></svg> </button><button className="music-control-btn music-play-btn"
                 onClick = { handlePlayPause } > {
-                    isPlaying ? ( < svg xmlns = "http://www.w3.org/2000/svg"
+                    isPlaying ? ( <svg xmlns = "http://www.w3.org/2000/svg"
                         width = "32"
                         height = "32"
                         viewBox = "0 0 24 24"
@@ -403,14 +403,14 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
                         stroke = "currentColor"
                         strokeWidth = "2"
                         strokeLinecap = "round"
-                        strokeLinejoin = "round" > < rect x = "6"
+                        strokeLinejoin = "round" > <rect x = "6"
                         y = "4"
                         width = "4"
-                        height = "16" > < /rect><rect x="14"
+                        height = "16" > </rect><rect x="14"
                         y = "4"
                         width = "4"
-                        height = "16" > < /rect></svg >
-                    ) : ( < svg xmlns = "http://www.w3.org/2000/svg"
+                        height = "16" > </rect></svg>
+                    ) : ( <svg xmlns = "http://www.w3.org/2000/svg"
                         width = "32"
                         height = "32"
                         viewBox = "0 0 24 24"
@@ -418,10 +418,10 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
                         stroke = "currentColor"
                         strokeWidth = "2"
                         strokeLinecap = "round"
-                        strokeLinejoin = "round" > < polygon points = "5 3 19 12 5 21 5 3" > < /polygon></svg >
+                        strokeLinejoin = "round" > <polygon points = "5 3 19 12 5 21 5 3" > </polygon></svg>
                     )
-                } < /button><button className="music-control-btn"
-                onClick = { handleNext } > < svg xmlns = "http://www.w3.org/2000/svg"
+                } </button><button className="music-control-btn"
+                onClick = { handleNext } > <svg xmlns = "http://www.w3.org/2000/svg"
                 width = "24"
                 height = "24"
                 viewBox = "0 0 24 24"
@@ -429,22 +429,22 @@ const MusicPlayerModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
                 stroke = "currentColor"
                 strokeWidth = "2"
                 strokeLinecap = "round"
-                strokeLinejoin = "round" > < polygon points = "5 4 15 12 5 20 5 4" > < /polygon><line x1="19"
+                strokeLinejoin = "round" > <polygon points = "5 4 15 12 5 20 5 4" > </polygon><line x1="19"
                 y1 = "5"
                 x2 = "19"
-                y2 = "19" > < /line></svg > < /button></div >
+                y2 = "19" > </line></svg> </button></div>
 
-                { /* Playlist */ } < div className = "music-playlist" > < h4 className = "music-playlist-title" > Playlist < /h4><div className="music-playlist-items"> {
-                SONGS.map((song, index) => ( < div key = { song.id }
+                { /* Playlist */ } <div className = "music-playlist" > <h4 className = "music-playlist-title" > Playlist </h4><div className="music-playlist-items"> {
+                SONGS.map((song, index) => ( <div key = { song.id }
                         className = { `music-playlist-item ${index === currentSongIndex ? 'active' : ''}` }
                         onClick = {
                             () => handleSelectSong(index)
-                        } > < div className = "music-playlist-item-cover" > < img src = { song.cover }
+                        } > <div className = "music-playlist-item-cover" > <img src = { song.cover }
                         alt = { song.title }
-                        /></div > < div className = "music-playlist-item-info" > < div className = "music-playlist-item-title" > { song.title } < /div><div className="music-playlist-item-artist"> { song.artist } </div > < /div> {
-                        index === currentSongIndex && isPlaying && ( < div className = "music-eq-icon" > < span > < /span><span></span > < span > < /span></div > )
-                    } < /div>))
-                } < /div></div > < /div></div >
+                        /></div> <div className = "music-playlist-item-info" > <div className = "music-playlist-item-title" > { song.title } </div><div className="music-playlist-item-artist"> { song.artist } </div> </div> {
+                        index === currentSongIndex && isPlaying && ( <div className = "music-eq-icon" > <span > </span><span></span> <span > </span></div> )
+                    } </div>))
+                } </div></div> </div></div>
             );
         };
 
