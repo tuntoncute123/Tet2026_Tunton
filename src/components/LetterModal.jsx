@@ -4,7 +4,8 @@ import './LetterModal.css';
 const LETTER_TEXTS = {
     'Đỗ Thanh Nhàn': `Happy Women's Day! Chúc Nhàn có một ngày 8/3 thật ý nghĩa và vui vẻ nhaaaaa. 
     Chúc cho công việc của bà luôn thuận buồm xuôi gió, làm đâu thắng đó và có thật nhiều cơ hội phát triển tốt trong tương lai. 
-    Đi làm cố gắng nhưng nhớ giữ sức khỏe nhé, chúc mọi dự định sắp tới của bà đều thành công rực rỡ!`,
+    Đi làm cố gắng nhưng nhớ giữ sức khỏe nhé, chúc mọi dự định sắp tới của bà đều thành công rực rỡ!
+    Tui có ít ảnh bà chụp quá, bà xem đỡ nha! Chuyến đi Đà Lạt này bà chụp nhiều ảnh hơn nhé! `,
     'Nguyễn Thị Kim Huệ': `Gửi bà nội thân yêu của tôi,
 
 Chúc nội một ngày 8/3 thật ý nghĩa và nhiều niềm vui. 
@@ -47,13 +48,13 @@ const LetterModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
         }
     };
 
-    return ( <div className = "letter-modal-overlay"
-        onClick = { handleBackdropClick } > <div className = "letter-modal-content"
-        ref = { modalRef }
-        onClick = { e => e.stopPropagation() } > <button className = "letter-modal-close"
-        onClick = { onClose } > ✕ </button><div className="letter-paper" ><p className="letter-text" > { displayedText } <span className="letter-cursor" ></span> </p> </div><div className="letter-signature" ><span className="signature-text" > Mãi xinh đẹp nhá</span> { /* Minh hoạ gấu ôm tim */ } <div className = "signature-illustration" > <span style = {
-            { fontSize: '2rem' }
-        } > 🧸💕 </span></div> </div></div> </div>
+    return (<div className="letter-modal-overlay"
+        onClick={handleBackdropClick} > <div className="letter-modal-content"
+            ref={modalRef}
+            onClick={e => e.stopPropagation()} > <button className="letter-modal-close"
+                onClick={onClose} > ✕ </button><div className="letter-paper" ><p className="letter-text" > {displayedText} <span className="letter-cursor" ></span> </p> </div><div className="letter-signature" ><span className="signature-text" > Mãi xinh đẹp nhá</span> { /* Minh hoạ gấu ôm tim */} <div className="signature-illustration" > <span style={
+                    { fontSize: '2rem' }
+                } > 🧸💕 </span></div> </div></div> </div>
     );
 };
 
