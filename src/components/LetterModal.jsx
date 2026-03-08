@@ -20,6 +20,10 @@ Cày cuốc gì thì cũng nhớ giữ sức khỏe nha.`,
 8/3 chúc Na có một ngày thật ý nghĩa và nhận được nhiều quà. 
 Chúc cho mọi mục tiêu sắp tới của bà, dù là học hành hay sự nghiệp, đều đạt kết quả cao chót vót. 
 Tui nhường anh Di Di của tui cho bà một hôm đó. Bây không cưới tao kiện á nha!`,
+    'Lê Thị Thanh Tuyền': `Ê Tuyền, 
+    mùng 8/3 chúc bà luôn xinh tươi, rạng rỡ và lúc nào cũng vui vẻ nha. 
+    Không biết dạo này đang cày deadline bài vở hay cày task công ty rồi, nhưng mà làm gì thì cũng chúc bà mọi chuyện mượt mà, thuận lợi hết nhé. 
+    Chúc sớm thành phú bà, tiền vô như nước. Happy Women's Day!`,
 };
 
 const LetterModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {

@@ -8,6 +8,7 @@ import nhan3 from '../8.3/nhan/498225368_661468486727573_3295657091496065542_n.j
 import nhan4 from '../8.3/nhan/Screenshot 2025-11-11 173229.png';
 import nhan5 from '../8.3/nhan/z7382237923179_018ea54c6f6972b382f011c9793dbe61.jpg';
 import nhan6 from '../8.3/nhan/z7382238993474_36e0efffa2ba24b798e8f488365bb7fc.jpg';
+import nhan7 from '../8.3/nhan/image.png';
 
 // Import ảnh từ thư mục hue
 import hue1 from '../8.3/hue/150976464_887195372042740_3615220983120976135_n.jpg';
@@ -29,6 +30,12 @@ import na2 from '../8.3/na/_MG_7395.JPG';
 import na3 from '../8.3/na/🏔️.jpg';
 import na4 from '../8.3/na/🦢⟡💭꙳◞🪽ྀི˖.jpg';
 import na5 from '../8.3/na/🧺⸝⸝ 🥞 ⁺˚🧸⋆.jpg';
+
+// Import ảnh từ thư mục tuyen
+import tuyen1 from '../8.3/tuyen/_MG_7335.JPG';
+import tuyen2 from '../8.3/tuyen/_MG_7471.JPG';
+import tuyen3 from '../8.3/tuyen/_MG_7482.JPG';
+import tuyen4 from '../8.3/tuyen/_MG_7701.JPG';
 
 // Danh sách bài hát cho từng user (với YouTube Video IDs)
 const SONG_SETS = {
@@ -73,6 +80,13 @@ const SONG_SETS = {
         artist: "BTS",
         cover: nhan6,
         youtubeId: "NNCBq0JHXsU"
+    },
+    {
+        id: 7,
+        title: "에너제틱 Energetic",
+        artist: "Wanna One",
+        cover: nhan7,
+        youtubeId: "-Oif1zcHV-4"
     }
     ],
     'Nguyễn Thị Kim Huệ': [{
@@ -181,6 +195,35 @@ const SONG_SETS = {
         artist: "Hứa Kim Tuyền & Hoàng Duyên",
         cover: na5,
         youtubeId: "E8TyHPlyjkk"
+    }
+    ],
+    'Lê Thị Thanh Tuyền': [{
+        id: 1,
+        title: "Wrong Times",
+        artist: "Puppy x GDucky",
+        cover: tuyen1,
+        youtubeId: "W4UeUJA9wLU"
+    },
+    {
+        id: 2,
+        title: "Chất gây hại",
+        artist: "Low G",
+        cover: tuyen2,
+        youtubeId: "R9o5eb7Zvbc"
+    },
+    {
+        id: 3,
+        title: "Nếu lúc đó",
+        artist: "tlinh",
+        cover: tuyen3,
+        youtubeId: "fyMgBQioTLo"
+    },
+    {
+        id: 4,
+        title: "Chế độ im lặng",
+        artist: "tlinh",
+        cover: tuyen4,
+        youtubeId: "UKPQMLDYFpA"
     }
     ],
 };

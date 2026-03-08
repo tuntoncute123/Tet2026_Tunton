@@ -8,6 +8,7 @@ import nhan3 from '../8.3/nhan/498225368_661468486727573_3295657091496065542_n.j
 import nhan4 from '../8.3/nhan/Screenshot 2025-11-11 173229.png';
 import nhan5 from '../8.3/nhan/z7382237923179_018ea54c6f6972b382f011c9793dbe61.jpg';
 import nhan6 from '../8.3/nhan/z7382238993474_36e0efffa2ba24b798e8f488365bb7fc.jpg';
+import nhan7 from '../8.3/nhan/image.png';
 
 // Import ảnh từ thư mục hue
 import hue1 from '../8.3/hue/150976464_887195372042740_3615220983120976135_n.jpg';
@@ -33,6 +34,12 @@ import na3 from '../8.3/na/🏔️.jpg';
 import na4 from '../8.3/na/🦢⟡💭꙳◞🪽ྀི˖.jpg';
 import na5 from '../8.3/na/🧺⸝⸝ 🥞 ⁺˚🧸⋆.jpg';
 
+// Import ảnh từ thư mục tuyen
+import tuyen1 from '../8.3/tuyen/_MG_7335.JPG';
+import tuyen2 from '../8.3/tuyen/_MG_7471.JPG';
+import tuyen3 from '../8.3/tuyen/_MG_7482.JPG';
+import tuyen4 from '../8.3/tuyen/_MG_7701.JPG';
+
 // Danh sách ảnh cho từng user
 const IMAGE_SETS = {
     'Đỗ Thanh Nhàn': [
@@ -42,6 +49,7 @@ const IMAGE_SETS = {
         { id: 4, url: nhan4 },
         { id: 5, url: nhan5 },
         { id: 6, url: nhan6 },
+        { id: 7, url: nhan7 },
     ],
     'Nguyễn Thị Kim Huệ': [
         { id: 1, url: hue1 },
@@ -66,6 +74,12 @@ const IMAGE_SETS = {
         { id: 3, url: na3 },
         { id: 4, url: na4 },
         { id: 5, url: na5 },
+    ],
+    'Lê Thị Thanh Tuyền': [
+        { id: 1, url: tuyen1 },
+        { id: 2, url: tuyen2 },
+        { id: 3, url: tuyen3 },
+        { id: 4, url: tuyen4 },
     ],
 };
 
