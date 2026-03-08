@@ -40,6 +40,13 @@ import tuyen2 from '../8.3/tuyen/_MG_7471.JPG';
 import tuyen3 from '../8.3/tuyen/_MG_7482.JPG';
 import tuyen4 from '../8.3/tuyen/_MG_7701.JPG';
 
+// Import ảnh từ thư mục quỳnh
+import quynh1 from '../8.3/quỳnh/Monthly recap💓.webp';
+import quynh2 from '../8.3/quỳnh/image.png';
+import quynh3 from '../8.3/quỳnh/image copy.png';
+import quynh4 from '../8.3/quỳnh/image copy 2.png';
+import quynh5 from '../8.3/quỳnh/image copy 3.png';
+
 // Danh sách ảnh cho từng user
 const IMAGE_SETS = {
     'Đỗ Thanh Nhàn': [
@@ -80,6 +87,13 @@ const IMAGE_SETS = {
         { id: 2, url: tuyen2 },
         { id: 3, url: tuyen3 },
         { id: 4, url: tuyen4 },
+    ],
+    'Tạ Thị Diễm Quỳnh': [
+        { id: 1, url: quynh1 },
+        { id: 2, url: quynh2 },
+        { id: 3, url: quynh3 },
+        { id: 4, url: quynh4 },
+        { id: 5, url: quynh5 },
     ],
 };
 

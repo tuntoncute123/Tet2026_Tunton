@@ -37,6 +37,13 @@ import tuyen2 from '../8.3/tuyen/_MG_7471.JPG';
 import tuyen3 from '../8.3/tuyen/_MG_7482.JPG';
 import tuyen4 from '../8.3/tuyen/_MG_7701.JPG';
 
+// Import ảnh từ thư mục quỳnh
+import quynh1 from '../8.3/quỳnh/Monthly recap💓.webp';
+import quynh2 from '../8.3/quỳnh/image.png';
+import quynh3 from '../8.3/quỳnh/image copy.png';
+import quynh4 from '../8.3/quỳnh/image copy 2.png';
+import quynh5 from '../8.3/quỳnh/image copy 3.png';
+
 // Danh sách bài hát cho từng user (với YouTube Video IDs)
 const SONG_SETS = {
     'Đỗ Thanh Nhàn': [{
@@ -224,6 +231,42 @@ const SONG_SETS = {
         artist: "tlinh",
         cover: tuyen4,
         youtubeId: "UKPQMLDYFpA"
+    }
+    ],
+    'Tạ Thị Diễm Quỳnh': [{
+        id: 1,
+        title: "Từng",
+        artist: "HURRYKNG",
+        cover: quynh1,
+        youtubeId: "ctCf7T69QMQ"
+    },
+    {
+        id: 2,
+        title: "Quả chín quá",
+        artist: "B-Wine",
+        cover: quynh2,
+        youtubeId: "nPLv2A66qac"
+    },
+    {
+        id: 3,
+        title: "Nếu lúc đó",
+        artist: "tlinh",
+        cover: quynh3,
+        youtubeId: "fyMgBQioTLo"
+    },
+    {
+        id: 4,
+        title: "Tò te tí",
+        artist: "Wren Evans",
+        cover: quynh4,
+        youtubeId: "aCqmdPaTVSg"
+    },
+    {
+        id: 5,
+        title: "Shhhhh",
+        artist: "WEAN x tlinh",
+        cover: quynh5,
+        youtubeId: "Pys2iOT9rpw"
     }
     ],
 };

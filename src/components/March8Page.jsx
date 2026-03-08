@@ -53,6 +53,7 @@ const March8Page = ({ onBack }) => {
         '0801': 'Trần Ly Na',
         '0101': 'Hải Yến',
         '2406': 'Lê Thị Thanh Tuyền',
+        '1409': 'Tạ Thị Diễm Quỳnh',
         // Thêm danh sách sinh nhật các bạn nữ lớp 9A vào đây...
     }), []);
 

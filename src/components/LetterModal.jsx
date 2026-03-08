@@ -24,6 +24,11 @@ Tui nhường anh Di Di của tui cho bà một hôm đó. Bây không cưới t
     mùng 8/3 chúc bà luôn xinh tươi, rạng rỡ và lúc nào cũng vui vẻ nha. 
     Không biết dạo này đang cày deadline bài vở hay cày task công ty rồi, nhưng mà làm gì thì cũng chúc bà mọi chuyện mượt mà, thuận lợi hết nhé. 
     Chúc sớm thành phú bà, tiền vô như nước. Happy Women's Day!`,
+    'Tạ Thị Diễm Quỳnh': `Chào Quỳnh nha,
+
+Nhân ngày Quốc tế Phụ nữ 8/3, tui chúc bà một ngày vui vẻ, rạng rỡ và luôn là cô gái đầy năng lượng nha. 
+Mong cho con đường phía trước của bà luôn suôn sẻ, dù là công việc, học tập hay bất cứ khởi đầu mới nào cũng đều thành công mĩ mãn. 
+Luôn xinh đẹp và hạnh phúc nhé!`,
 };
 
 const LetterModal = ({ onClose, userName = 'Đỗ Thanh Nhàn' }) => {
